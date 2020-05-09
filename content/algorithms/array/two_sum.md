@@ -19,7 +19,7 @@ authors = ["Suzie Jung"]
 
 ### Time: O(N)
 
-We iterate through the array once. 
+We iterate through the array once.
 
 ### Space: O(N)
 
@@ -33,20 +33,22 @@ class Solution:
         target_dict = {}
 
         for i, num in enumerate(nums):
-            comp = target - num 
-            if comp in target_dict: 
+            comp = target - num
+            if comp in target_dict:
                 return [target_dict[comp], i]
             else:
-                target_dict[num] = i 
-        
+                target_dict[num] = i
+
         return []
 ```
 
 ## Go solution
+
 ```go
+
 func twoSum(nums []int, target int) []int {
     target_dict := make(map[int]int)
-    
+
     for i, num := range nums {
         val, in_map := target_dict[target - num]
         if in_map {
@@ -57,4 +59,24 @@ func twoSum(nums []int, target int) []int {
     }
     return [](int){}
 }
+```
+
+## Rust solution
+
+```rust
+use std::collections::HashMap;
+
+impl Solution {
+    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        let mut target_dict = HashMap::new();
+        for (i, num) in nums.iter().enumerate() {
+            match target_dict.get(&(target-num)) {
+                Some(&complement) => return vec![i as i32, complement as i32],
+                None => target_dict.insert(num, i)
+            };
+        }
+        vec![]
+    }
+}
+
 ```

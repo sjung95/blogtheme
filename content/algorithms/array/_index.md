@@ -4,7 +4,7 @@ sort_by = "date"
 insert_anchor_links = "right" 
 +++
 
-[Tech Interview Handbook Section: Array] https://yangshun.github.io/tech-interview-handbook/algorithms/array)
+[Tech Interview Handbook Section: Array] (https://yangshun.github.io/tech-interview-handbook/algorithms/array)
 
 - Two Sum - https://leetcode.com/problems/two-sum/
 - Best Time to Buy and Sell Stock - https://leetcode.com/problems/best-time-to-buy-and-sell-stock/

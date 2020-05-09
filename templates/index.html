@@ -17,13 +17,13 @@
             <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
             <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
           </form>
-          <a href="/blogtheme/search/">&#8981;</a>       
+          <a href="/search/">&#8981;</a>       
         </div>
 
       {% block nav %}
         <ul id="breadcrumbs">
           {% for tax in config.taxonomies %}
-            <li>/<a href="/blogtheme/{{tax.name}}/">{{tax.name}}</a>&nbsp;</li> 
+            <li>/<a href="/{{tax.name}}/">{{tax.name}}</a>&nbsp;</li> 
           {% endfor %}
         </ul>
         <h1>{{ config.title }}</h1>  

@@ -1,6 +1,6 @@
 base_url = "https://sjung95.github.io/"
 compile_sass = true
-title = "Docs title"
+title = "Fun zone"
 highlight_code = true
 highlight_theme = "kronuz"
 build_search_index = true

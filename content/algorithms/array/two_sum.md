@@ -38,5 +38,23 @@ class Solution:
                 return [target_dict[comp], i]
             else:
                 target_dict[num] = i 
+        
+        return []
 ```
 
+## Go solution
+```go
+func twoSum(nums []int, target int) []int {
+    target_dict := make(map[int]int)
+    
+    for i, num := range nums {
+        val, in_map := target_dict[target - num]
+        if in_map {
+            return [](int){val, i}
+        } else {
+            target_dict[num] = i
+        }
+    }
+    return [](int){}
+}
+```

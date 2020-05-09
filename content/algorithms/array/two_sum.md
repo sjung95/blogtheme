@@ -12,7 +12,7 @@ authors = ["Suzie Jung"]
 ## How to solve
 
 1. Create a hash table in which the index is the number and the value is the index of the number in the array.
-2. Iterate through the array to populate the hash table while also checking for the complement that adds to the target.
+2. Iterate through the array to populate the hash table while also checking for the complement that sums to the target.
 3. Return the indices of numbers that sum to target.
 
 ## Complexity Analysis

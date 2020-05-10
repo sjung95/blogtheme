@@ -46,7 +46,6 @@ class Solution:
 ## Go solution
 
 ```go
-
 func maxSubArray(nums []int) int {
     if len(nums) == 0 {
         return 0
@@ -73,7 +72,7 @@ func maxSubArray(nums []int) int {
 ## Rust solution
 
 ```rust
-use std::cmp::{max};
+use std::cmp::max;
 
 impl Solution {
     pub fn max_sub_array(nums: Vec<i32>) -> i32 {
@@ -90,5 +89,4 @@ impl Solution {
         max_sum
     }
 }
-
 ```

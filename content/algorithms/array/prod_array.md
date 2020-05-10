@@ -59,7 +59,6 @@ class Solution(object):
 ## Go solution
 
 ```go
-
 func productExceptSelf(nums []int) []int {
     if len(nums) == 0 {
         return []int{}
@@ -105,5 +104,4 @@ impl Solution {
         return ans;
     }
 }
-
 ```

@@ -50,7 +50,6 @@ class Solution(object):
 ## Go solution
 
 ```go
-
 func containsDuplicate(nums []int) bool {
     set := make(map[int]bool)
 
@@ -83,5 +82,4 @@ impl Solution {
         false  
     }
 }
-
 ```

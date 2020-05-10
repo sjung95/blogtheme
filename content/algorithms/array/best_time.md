@@ -44,7 +44,6 @@ class Solution:
 ## Go solution
 
 ```go
-
 func maxProfit(prices []int) int {
     min_price := math.MaxInt32
     max_profit := 0

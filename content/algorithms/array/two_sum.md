@@ -45,7 +45,6 @@ class Solution:
 ## Go solution
 
 ```go
-
 func twoSum(nums []int, target int) []int {
     target_dict := make(map[int]int)
 
@@ -78,5 +77,4 @@ impl Solution {
         vec![]
     }
 }
-
 ```

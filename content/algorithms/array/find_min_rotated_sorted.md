@@ -70,11 +70,7 @@ func findMin(nums []int) int {
         return nums[lo]
     }
 
-    for {
-        if lo > hi {
-            break
-        }
-
+    for lo <= hi {
         mid := lo + (hi - lo) / 2
         if nums[mid] > nums[mid+1] {
             return nums[mid+1]

@@ -76,13 +76,10 @@ func search(nums []int, target int) int {
         return -1
     }
 
-    lo := 0 
+    lo := 0
     hi := len(nums) - 1
 
-    for {
-        if lo > hi {
-            break
-        }
+    for lo <= hi {
         mid := lo + (hi - lo) / 2
         if nums[mid] == target {
             return mid

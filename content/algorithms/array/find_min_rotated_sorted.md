@@ -1,5 +1,5 @@
 +++
-title = "Find Minimum in a Rotated Sorted Subarray"
+title = "Find Minimum in a Rotated Sorted Array"
 date = 2020-05-11
 description = "Array"
 insert_anchor_links = "right"

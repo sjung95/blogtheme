@@ -1,5 +1,5 @@
 +++
-title = "Sum Two Integers"
+title = "Sum of Two Integers"
 date = 2020-05-12
 description = "Binary"
 insert_anchor_links = "right"

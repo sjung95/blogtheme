@@ -27,9 +27,9 @@ authors = ["Suzie Jung"]
 
 ## Complexity Analysis
 
-### Time: O(1)
+### Time: O(N)
 
-Unsure ...
+Linear time with respect to the number of bits.
 
 ### Space: O(1)
 

@@ -25,7 +25,7 @@ We iterate through the array once.
 
 ### Space: O(1)
 
-We only use variables. 
+We only use variables.
 
 ## Python solution
 

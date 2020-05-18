@@ -32,9 +32,9 @@ authors = ["Suzie Jung"]
 Sorting the nums array takes NlogN time.
 While iterating through the array, the for loop runs at most N times, and at each iteration we iterate through the array again (N times).
 
-### Space: O(1)
+### Space: O(logN)
 
-No extra space is used.
+When sort() is called, logN recursive calls are made. Thus it takes up logN space on the stack.
 
 ## Python solution
 

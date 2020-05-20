@@ -266,9 +266,28 @@ main {
   }
 
   #bger, #tax_list {
-    display: none;
+    display: block;
   }
 }
 
 @import "search";
+
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  border-color: #cccccc;
+
+  td {
+    padding: 3px 20px;
+    border: 1px solid #ccc;
+  }
+
+  thead {
+    th {
+      padding: 6px 13px;
+      font-weight: bold;
+      border: 1px solid #ccc;
+    }
+  }
+}
 

@@ -12,8 +12,8 @@ authors = ["Suzie Jung"]
 ## How to solve
 
 1. Use the divide and conquer approach.
-        * Assuming the input number is 32 bits, start reversing by swapping the first 16 bits with the last 16 bits.
-        * Then for each 16 bit half, swap the first 8 bits with the last 8 bits. Repeat for each 4 bit group, 2 bit group, and then 1 bit.
+    * Assuming the input number is 32 bits, start reversing by swapping the first 16 bits with the last 16 bits.
+    * Then for each 16 bit half, swap the first 8 bits with the last 8 bits. Repeat for each 4 bit group, 2 bit group, and then 1 bit.
 
 ## Complexity Analysis
 

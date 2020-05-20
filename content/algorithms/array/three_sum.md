@@ -29,12 +29,11 @@ authors = ["Suzie Jung"]
 
 ### Time: O(N^2)
 
-Sorting the nums array takes NlogN time.
-While iterating through the array, the for loop runs at most N times, and at each iteration we iterate through the array again (N times).
+While iterating through the array, we consider each number as a potential candidate for 3 sum numbers. With that number fixed, we iterate through the rest of the array to check if they sum to 0. For each of the n iterations, n-1, n-2, ... , 2, 1 work gets done. (n-1) + (n-2) + ... 2 + 1 = n^2 as per Gauss's formula.
 
-### Space: O(logN)
+### Space: O(logN) with Python's Timsort or O(N) with Quicksort
 
-When sort() is called, logN recursive calls are made. Thus it takes up logN space on the stack.
+When sort() is called, Python uses Timsort which has O(N) space complexity. If Quicksort is used (the optimized version by Sedgewick), the extra space used would be O(logN).
 
 ## Python solution
 

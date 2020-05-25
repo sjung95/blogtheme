@@ -34,7 +34,7 @@ The ways to make N is stored for each amount from 0 to N.
 ```python
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [float("inf") for _ in range(amount + 1)]
+        dp = [(amount+1) for _ in range(amount + 1)]
 
         dp[0] = 0
 
@@ -42,7 +42,7 @@ class Solution:
             for i in range(coin, amount+1):
                 dp[i] = min(dp[i-coin] + 1, dp[i])
 
-        if dp[-1] == float("inf"):
+        if dp[-1] == amount+1:
             return -1
 
         return dp[-1]
@@ -55,7 +55,7 @@ func coinChange(coins []int, amount int) int {
     dp := make([]int, amount+1)
 
     for i := 0; i < amount + 1; i++ {
-        dp[i] = math.MaxInt32
+        dp[i] = amount + 1
     }
 
     dp[0] = 0
@@ -63,10 +63,11 @@ func coinChange(coins []int, amount int) int {
     for _, coin := range coins {
         for i := coin; i < amount + 1; i ++ {
             dp[i] = min(dp[i], dp[i-coin] + 1)
+
         }
     }
 
-    if dp[amount] == math.MaxInt32 {
+    if dp[amount] == amount+1 {
         return -1
     }
 
@@ -88,18 +89,18 @@ use std::cmp::min;
 
 impl Solution {
     pub fn coin_change(coins: Vec<i32>, amount: i32) -> i32 {
-        let mut dp = vec![std::i32::MAX; (amount+1) as usize];
+        let mut dp = vec![(amount+1); (amount+1) as usize];
         dp[0] = 0;
 
         for &coin in &coins {
             for i in coin..amount+1 {
-                if dp[(i-coin) as usize] != std::i32::MAX {
-                    dp[i as usize] = min(dp[i as usize], dp[(i-coin) as usize] + 1)
-                }
+                let coin = coin as usize;
+                let i = i as usize;
+                dp[i] = min(dp[i], dp[(i-coin)] + 1)
             }
         }
 
-        if dp[amount as usize] == std::i32::MAX {
+        if dp[amount as usize] == amount + 1 {
             return -1
         }
         return dp[amount as usize]

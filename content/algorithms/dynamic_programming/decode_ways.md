@@ -107,7 +107,7 @@ impl Solution {
 
         let mut dp = vec![0; s.len()];
         dp[0] = 1;
-       // 1, 2, 2
+
         for i in 1..s.len() {
             if char_array[i] != b'0' {
                 dp[i] += dp[i-1];

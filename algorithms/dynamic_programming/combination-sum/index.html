@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Combination Sum IV </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;dynamic_programming&#x2F;">Dynamic Programming</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Combination Sum IV</h1><em>Dynamic Programming</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 20, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/dynamic-programming/" >#Dynamic Programming</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/combination-sum/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/combination-sum/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/combination-sum/#time-o-target-len-nums">Time: O((target)*len(nums))</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/combination-sum/#space-o-target">Space: O(target)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/combination-sum/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/combination-sum/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/combination-sum/#rust-solution">Rust solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>Create a dp array of length target+1 with values initialized to 0s. The value at an index of the dp array denotes the possible ways to sum to the index amount.</li>
+<li>Set the base case: dp[0] = 1. There is 1 way to sum to 0, which is accomplished by using 0 numbers.</li>
+<li>Iterate through the dp array starting from index 1, and for each target amount specified by the dp array index, we iterate through the nums and add possible ways to sum to the amount.
+<ul>
+<li>If the given index (our target amount at a given step) is greater than or equal to the current number, we can add to the ways to make the current amount the ways to make the current amount - current number.</li>
+</ul>
+</li>
+<li>Return the last element in the dp array.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-target-len-nums">Time: O((target)*len(nums))<a class="anchor" href="#time-o-target-len-nums">§</a>&nbsp;</h3>
+<p>For each character in target, we iterate through the nums array entirely.</p>
+<h3 id="space-o-target">Space: O(target)<a class="anchor" href="#space-o-target">§</a>&nbsp;</h3>
+<p>We utilize a dp array of length target + 1. </p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">combinationSum4</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">], </span><span style="font-style:italic;color:#fd971f;">target</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">:
+        dp </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[</span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_ </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(target</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)]
+        dp[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">1
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, target</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">):
+            </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">num </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">nums:
+                </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">&gt;= </span><span style="color:#e6e1dc;">num:
+                    dp[i] </span><span style="color:#cc7833;">+= </span><span style="color:#e6e1dc;">dp[i</span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;">num]
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">dp[</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">combinationSum4</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums </span><span style="color:#e6e1dc;">[]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">target </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#d0d0ff;">dp </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">([]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, target</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+    dp[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">1
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> target</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">; i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">num </span><span style="color:#cc7833;">:= range</span><span style="color:#e6e1dc;"> nums {
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> num {
+                dp[i] </span><span style="color:#cc7833;">+=</span><span style="color:#e6e1dc;"> dp [i</span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;">num]
+            }
+        }
+    }
+    </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> dp[target]
+}
+</span></pre><h2 id="rust-solution">Rust solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">combination_sum4</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;, </span><span style="font-style:italic;color:#fd971f;">target</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">i32 </span><span style="color:#e6e1dc;">{
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> dp </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">vec![</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; (target</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">];
+        dp[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">target</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">for &amp;</span><span style="color:#e6e1dc;">num </span><span style="color:#cc7833;">in &amp;</span><span style="color:#e6e1dc;">nums {
+                </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> num {
+                    dp[i </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">+=</span><span style="color:#e6e1dc;"> dp[(i</span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;">num) </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">]
+                }
+            }
+        }
+
+        dp[target </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">]
+    }
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

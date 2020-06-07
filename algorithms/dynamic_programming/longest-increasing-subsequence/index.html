@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Longest Increasing Subsequence </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;dynamic_programming&#x2F;">Dynamic Programming</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Longest Increasing Subsequence</h1><em>Dynamic Programming</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 19, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/dynamic-programming/" >#Dynamic Programming</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/longest-increasing-subsequence/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/longest-increasing-subsequence/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/longest-increasing-subsequence/#time-o-nlogn">Time: O(NlogN)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/longest-increasing-subsequence/#space-o-n">Space: O(N)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/longest-increasing-subsequence/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/longest-increasing-subsequence/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/longest-increasing-subsequence/#rust-solution">Rust solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>The main idea is to use the greedy approach to the patience game as described in this video <a href="https://www.youtube.com/watch?v=22s1xxRvy28&amp;feature=youtu.be">https://www.youtube.com/watch?v=22s1xxRvy28&amp;feature=youtu.be</a>.</li>
+<li>Iterate through the nums array and make &quot;piles&quot; of the numbers as you would make piles of cards.
+<ul>
+<li>Rule 1: Each pile stacks numbers in decreasing order (i.e. the bottom-most number is the biggest in the pile).</li>
+<li>Rule 2: Each number is put on the leftmost pile that can take the number. If a number is greater than the top number of the rightmost pile, create a new pile to the right.</li>
+</ul>
+</li>
+<li>With the two rules in place, create piles of the numbers. To keep track of the actual longest increasing subsequence, we need a separate hash map that keeps track of the connections.
+<ul>
+<li>When a card is added to a pile, update the trail_of_nums. When a new number is added to a pile, this effectively creates a pointer from this new number to the topmost (smallest) number of the previous pile if there is one.</li>
+<li>To retrieve the longest increasing subsequence, backtrack from the topmost card of the rightmost pile.</li>
+</ul>
+</li>
+<li>Note that to find the proper pile to put the card, we use binary search.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-nlogn">Time: O(NlogN)<a class="anchor" href="#time-o-nlogn">§</a>&nbsp;</h3>
+<p>For each of the N numbers, we have to find its proper place through binary search, which takes logN time.</p>
+<h3 id="space-o-n">Space: O(N)<a class="anchor" href="#space-o-n">§</a>&nbsp;</h3>
+<p>In the worst case, there are N piles (and N entries in the hashmap that keeps track of the pointers - this data structure is optional as it is not required by the problem to return the actual subsequence).
+* This would happen if nums was in a strictly increasing order.</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">lengthOfLIS</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">if not </span><span style="color:#e6e1dc;">nums:
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+
+        </span><span style="color:#e6e1dc;">piles </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[]
+        trail_of_nums </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">{}
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">num </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">nums:
+            </span><span style="color:#cc7833;">if not </span><span style="color:#e6e1dc;">piles </span><span style="color:#cc7833;">or </span><span style="color:#e6e1dc;">num </span><span style="color:#cc7833;">&gt; </span><span style="color:#e6e1dc;">piles[</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]:
+                piles.append(num)
+
+                </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">:
+                    trail_of_nums[num] </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">piles[</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">]
+
+            </span><span style="color:#cc7833;">else</span><span style="color:#e6e1dc;">:
+                left </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+                </span><span style="color:#e6e1dc;">right </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+                </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">left </span><span style="color:#cc7833;">&lt;= </span><span style="color:#e6e1dc;">right:
+                    mid </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">left </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(right</span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;">left)</span><span style="color:#cc7833;">//</span><span style="color:#a5c261;">2
+
+                    </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">piles[mid] </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">num:
+                        left </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">mid </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1
+                    </span><span style="color:#cc7833;">else</span><span style="color:#e6e1dc;">:
+                        right </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">mid </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+                </span><span style="color:#e6e1dc;">piles[left] </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">num
+                </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">left </span><span style="color:#cc7833;">!= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">:
+                    trail_of_nums[num] </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">piles[left</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+
+        ptr </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">piles[</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+        back_ptrs </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[]
+        </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">ptr </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">trail_of_nums:
+            back_ptrs.append(ptr)
+            ptr </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">trail_of_nums[ptr]
+
+        back_ptrs.append(ptr)
+        </span><span style="color:#da4939;">print</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#6e9cbe;">list</span><span style="color:#e6e1dc;">(</span><span style="color:#da4939;">reversed</span><span style="color:#e6e1dc;">(back_ptrs)))
+        </span><span style="color:#cc7833;">return </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles)
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">lengthOfLIS</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums </span><span style="color:#e6e1dc;">[]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+    </span><span style="color:#e6e1dc;">}
+
+    </span><span style="font-style:italic;color:#6e9cbe;">var </span><span style="color:#d0d0ff;">piles </span><span style="color:#e6e1dc;">[] </span><span style="font-style:italic;color:#6e9cbe;">int
+    </span><span style="color:#d0d0ff;">trail_of_nums </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">)
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">num </span><span style="color:#cc7833;">:= range</span><span style="color:#e6e1dc;"> nums {
+        </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">||</span><span style="color:#e6e1dc;"> num </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> piles[</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] {
+            piles </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">append</span><span style="color:#e6e1dc;">(piles, num)
+            </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+                trail_of_nums[num] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> piles[</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">]
+            }
+        } </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#d0d0ff;">left </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0
+            </span><span style="color:#d0d0ff;">right </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+            </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> left </span><span style="color:#cc7833;">&lt;=</span><span style="color:#e6e1dc;"> right {
+                </span><span style="color:#d0d0ff;">mid </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> left </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(right</span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;">left)</span><span style="color:#cc7833;">/</span><span style="color:#a5c261;">2
+
+                </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> piles[mid] </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> num {
+                    left </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1
+                </span><span style="color:#e6e1dc;">} </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+                    right </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+                </span><span style="color:#e6e1dc;">}
+            }
+            piles[left] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> num
+
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> left </span><span style="color:#cc7833;">!= </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+                trail_of_nums[num] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> piles[left</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+            }
+        }
+    }
+
+    </span><span style="color:#d0d0ff;">ptr </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> piles[</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+    </span><span style="font-style:italic;color:#6e9cbe;">var </span><span style="color:#d0d0ff;">back_ptrs </span><span style="color:#e6e1dc;">[] </span><span style="font-style:italic;color:#6e9cbe;">int
+    </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">{
+        back_ptrs </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">append</span><span style="color:#e6e1dc;">(back_ptrs, ptr)
+        </span><span style="color:#d0d0ff;">value</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">exists </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> trail_of_nums[ptr]
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> exists {
+            ptr </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> value
+        } </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">break
+        </span><span style="color:#e6e1dc;">}
+    }
+    fmt.Printf(</span><span style="color:#c1be91;">&quot;</span><span style="color:#6d9cbe;">%v</span><span style="color:#c1be91;">&quot;</span><span style="color:#e6e1dc;">, back_ptrs)
+    </span><span style="color:#cc7833;">return </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(piles)
+}
+</span></pre><h2 id="rust-solution">Rust solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="color:#cc7833;">use </span><span style="color:#e6e1dc;">std::collections::HashMap;
+
+</span><span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">length_of_lis</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">i32 </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+        }
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> piles </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">Vec</span><span style="color:#e6e1dc;">::new();
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> trail_of_nums </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">HashMap::new();
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> num </span><span style="color:#cc7833;">in &amp;</span><span style="color:#e6e1dc;">nums {
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">|| </span><span style="color:#e6e1dc;">(num </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> piles[piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) {
+                piles.</span><span style="color:#da4939;">push</span><span style="color:#e6e1dc;">(num);
+
+                </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+                    trail_of_nums.</span><span style="color:#da4939;">insert</span><span style="color:#e6e1dc;">(num, piles[piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">]);
+                }
+            }
+            </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+                </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> left </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">;
+                </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> right </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">(piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">;
+
+                </span><span style="color:#cc7833;">while</span><span style="color:#e6e1dc;"> left </span><span style="color:#cc7833;">&lt;=</span><span style="color:#e6e1dc;"> right {
+                    </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">(left </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(right</span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;">left) </span><span style="color:#cc7833;">/ </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">;
+                    </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> piles[mid] </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> num {
+                        left </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">(mid </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">;
+                    }
+                    </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+                        right </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">(mid </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">;
+                    }
+                }
+
+                piles[left </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> num;
+                </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> left </span><span style="color:#cc7833;">!= </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+                    trail_of_nums.</span><span style="color:#da4939;">insert</span><span style="color:#e6e1dc;">(num, piles[(left</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">]);
+                }
+            }
+        }
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> ptr </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> piles[piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">];
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> back_ptrs </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">Vec</span><span style="color:#e6e1dc;">::with_capacity(piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">());
+        </span><span style="color:#cc7833;">loop </span><span style="color:#e6e1dc;">{
+            back_ptrs.</span><span style="color:#da4939;">push</span><span style="color:#e6e1dc;">(ptr);
+            </span><span style="color:#cc7833;">match</span><span style="color:#e6e1dc;"> trail_of_nums.</span><span style="color:#da4939;">get</span><span style="color:#e6e1dc;">(ptr) {
+                </span><span style="font-style:italic;color:#6e9cbe;">Some</span><span style="color:#e6e1dc;">(previous_num) </span><span style="color:#cc7833;">=&gt; </span><span style="color:#e6e1dc;">{
+                    ptr </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> previous_num;
+                },
+                </span><span style="font-style:italic;color:#6e9cbe;">None </span><span style="color:#cc7833;">=&gt; break
+            </span><span style="color:#e6e1dc;">};
+        }
+        println!(</span><span style="color:#c1be91;">&quot;</span><span style="color:#6d9cbe;">{:?}</span><span style="color:#c1be91;">&quot;</span><span style="color:#e6e1dc;">, back_ptrs);
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">(piles.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">)
+    }
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

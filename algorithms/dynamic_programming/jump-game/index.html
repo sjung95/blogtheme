@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Jump Game </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;dynamic_programming&#x2F;">Dynamic Programming</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Jump Game</h1><em>Dynamic Programming</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 25, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/dynamic-programming/" >#Dynamic Programming</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/jump-game/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/jump-game/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/jump-game/#time-o-n">Time: O(N)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/jump-game/#space-o-1">Space: O(1)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/jump-game/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/jump-game/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/jump-game/#rust-solution">Rust solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>We keep track of the current max index, which denotes the max index we can jump to at a given time. This variable will allow us to determine whether we can reach the last index.</li>
+<li>Initialize the current max index to 0.</li>
+<li>We iterate through nums.
+<ul>
+<li>If the index of the number in nums we are considering is greater than our current max index, this means that there is no way we can jump to this current index or any index after it. Therefore, since there is no way to jump to the last index, we return False.</li>
+<li>We update the current max index to the maximum of itself and where we can jump to from the current index given the number at the current index (idx + nums[idx]).</li>
+<li>If the updated current max index is greater than our last index, this means that we can reach the last index. Thus, we can return True.</li>
+</ul>
+</li>
+<li>If we have iterated through the nums without returning False, this means that there is a way to reach the last index. Thus, return True.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-n">Time: O(N)<a class="anchor" href="#time-o-n">§</a>&nbsp;</h3>
+<p>We iterate through the nums array once.</p>
+<h3 id="space-o-1">Space: O(1)<a class="anchor" href="#space-o-1">§</a>&nbsp;</h3>
+<p>There is no extra space utilized as we keep track of one variable throughout.</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">canJump</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">:
+
+        curr_max_index </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums)):
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">&gt; </span><span style="color:#e6e1dc;">curr_max_index:
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">False
+
+            </span><span style="color:#e6e1dc;">curr_max_index </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(curr_max_index, i </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">nums[i])
+
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">curr_max_index </span><span style="color:#cc7833;">&gt; </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">:
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">True
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">True
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">canJump</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums </span><span style="color:#e6e1dc;">[]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">bool </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#d0d0ff;">curr_max_idx </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt; </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums); i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> curr_max_idx {
+            </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">false
+        </span><span style="color:#e6e1dc;">}
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[i] </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> curr_max_idx {
+            curr_max_idx </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[i]
+        }
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> curr_max_idx </span><span style="color:#cc7833;">&gt; </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true
+        </span><span style="color:#e6e1dc;">}
+    }
+    </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true
+</span><span style="color:#e6e1dc;">}
+</span></pre><h2 id="rust-solution">Rust solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="color:#cc7833;">use </span><span style="color:#e6e1dc;">std::cmp::max;
+
+</span><span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">can_jump</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">bool </span><span style="color:#e6e1dc;">{
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> curr_max_idx </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() {
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> curr_max_idx {
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">false
+            </span><span style="color:#e6e1dc;">}
+            curr_max_idx </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(curr_max_idx, i </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(nums[i] </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">));
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> curr_max_idx </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true
+            </span><span style="color:#e6e1dc;">}
+        }
+        </span><span style="color:#6e9cbe;">true
+    </span><span style="color:#e6e1dc;">}
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

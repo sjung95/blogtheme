@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>FUNZONE</title>
+        <link>https://sjung95.github.io/</link>
+        <description></description>
+        <generator>Zola</generator>
+        <language>en</language>
+        <atom:link href="https://sjung95.github.io/tags/binary/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Sat, 16 May 2020 00:00:00 +0000</lastBuildDate>
+        
+            <item>
+                <title>Counting Bits</title>
+                <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
+                <link>https://sjung95.github.io/algorithms/binary/counting-bits/</link>
+                <guid>https://sjung95.github.io/algorithms/binary/counting-bits/</guid>
+                <description>&lt;h2 id=&quot;how-to-solve&quot;&gt;How to solve&lt;a class=&quot;anchor&quot; href=&quot;#how-to-solve&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Initialize an answer array of size num + 1 (number of numbers from 0 to num inclusive).&lt;&#x2F;li&gt;
+&lt;li&gt;Iterate through the answer array and fill it out.
+&lt;ul&gt;
+&lt;li&gt;The number of one bits in a given number is 1 + (the number of one bits in given number ANDed with given number minus one).&lt;&#x2F;li&gt;
+&lt;li&gt;This holds because ANDing a number with a number one less than it flips the least significant 1-bit of the number to 0.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;complexity-analysis&quot;&gt;Complexity Analysis&lt;a class=&quot;anchor&quot; href=&quot;#complexity-analysis&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;time-o-n&quot;&gt;Time: O(N)&lt;a class=&quot;anchor&quot; href=&quot;#time-o-n&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;Linear time with respect to num.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;space-o-1&quot;&gt;Space: O(1)&lt;a class=&quot;anchor&quot; href=&quot;#space-o-1&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;No extra space is used.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-solution&quot;&gt;Python solution&lt;a class=&quot;anchor&quot; href=&quot;#python-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;class &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ffc66d;&quot;&gt;Solution&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;countBits&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) -&amp;gt; List[&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;]:
+        ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d0d0ff;&quot;&gt;_ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;range&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)]
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;range&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;):
+            ans[i] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;ans[i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;ans
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;go-solution&quot;&gt;Go solution&lt;a class=&quot;anchor&quot; href=&quot;#go-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;func &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;countBits&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;num &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) []&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d0d0ff;&quot;&gt;ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;:= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;make&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;([]&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+    ans[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d0d0ff;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;:= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;; i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;; i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;++ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+        ans[i] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; ans[i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;}
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; ans
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;rust-solution&quot;&gt;Rust solution&lt;a class=&quot;anchor&quot; href=&quot;#rust-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;Solution {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;count_bits&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) -&amp;gt; Vec&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;&amp;gt; {
+        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;vec![&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;; (num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;];
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;..&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;usize &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+            ans[i] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; ans[i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;}
+
+        ans
+    }
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+            <item>
+                <title>Missing Number</title>
+                <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
+                <link>https://sjung95.github.io/algorithms/binary/missing-number/</link>
+                <guid>https://sjung95.github.io/algorithms/binary/missing-number/</guid>
+                <description>&lt;h2 id=&quot;how-to-solve&quot;&gt;How to solve&lt;a class=&quot;anchor&quot; href=&quot;#how-to-solve&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Set the answer to n (length of nums array).&lt;&#x2F;li&gt;
+&lt;li&gt;XOR n with the index and value of every element in the nums array.&lt;&#x2F;li&gt;
+&lt;li&gt;This yields the missing number.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;complexity-analysis&quot;&gt;Complexity Analysis&lt;a class=&quot;anchor&quot; href=&quot;#complexity-analysis&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;time-o-n&quot;&gt;Time: O(N)&lt;a class=&quot;anchor&quot; href=&quot;#time-o-n&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;The algorithm iterates through the nums array once; thus,assuming XOR is a constant-time operation, the runtime is linear.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;space-o-1&quot;&gt;Space: O(1)&lt;a class=&quot;anchor&quot; href=&quot;#space-o-1&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;Only constant space is used.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-solution&quot;&gt;Python solution&lt;a class=&quot;anchor&quot; href=&quot;#python-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;class &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ffc66d;&quot;&gt;Solution&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;missingNumber&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;nums&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: List[&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;]) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+        ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;len&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(nums)
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;i, num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;enumerate&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(nums):
+            ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;num
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;ans
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;go-solution&quot;&gt;Go solution&lt;a class=&quot;anchor&quot; href=&quot;#go-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;func &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;missingNumber&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;nums &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;[]&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d0d0ff;&quot;&gt;ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;:= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;len&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(nums)
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d0d0ff;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d0d0ff;&quot;&gt;num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;:= range&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; nums {
+        ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num
+    }
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; ans
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;rust-solution&quot;&gt;Rust solution&lt;a class=&quot;anchor&quot; href=&quot;#rust-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;Solution {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;missing_number&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;nums&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: Vec&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;&amp;gt;) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; nums.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;len&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;();
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;..&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;nums.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#da4939;&quot;&gt;len&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;()  {
+            ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(nums[i] &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;usize&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; i;
+        }
+        ans &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;}
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+            <item>
+                <title>Reverse Bits</title>
+                <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
+                <link>https://sjung95.github.io/algorithms/binary/reverse-bits/</link>
+                <guid>https://sjung95.github.io/algorithms/binary/reverse-bits/</guid>
+                <description>&lt;h2 id=&quot;how-to-solve&quot;&gt;How to solve&lt;a class=&quot;anchor&quot; href=&quot;#how-to-solve&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Use the divide and conquer approach.
+&lt;ul&gt;
+&lt;li&gt;Assuming the input number is 32 bits, start reversing by swapping the first 16 bits with the last 16 bits.&lt;&#x2F;li&gt;
+&lt;li&gt;Then for each 16 bit half, swap the first 8 bits with the last 8 bits. Repeat for each 4 bit group, 2 bit group, and then 1 bit.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;complexity-analysis&quot;&gt;Complexity Analysis&lt;a class=&quot;anchor&quot; href=&quot;#complexity-analysis&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;time-o-nlogn&quot;&gt;Time: O(NlogN)&lt;a class=&quot;anchor&quot; href=&quot;#time-o-nlogn&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;This is derived from using the second case of Master&#x27;s Theorem.
+The number of sub-problems is a=2. The size of each sub-problem is n&#x2F;b=n&#x2F;2. The cost of work that has to be done is f(n)=n to flip the bits at every level.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;space-o-1&quot;&gt;Space: O(1)&lt;a class=&quot;anchor&quot; href=&quot;#space-o-1&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;No extra space is used.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-solution&quot;&gt;Python solution&lt;a class=&quot;anchor&quot; href=&quot;#python-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;class &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ffc66d;&quot;&gt;Solution&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;reverseBits&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;n&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+
+        n &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xFFFF0000 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;16&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x0000FFFF &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;16&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        n &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xFF00FF00 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;8&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x00FF00FF &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;8&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        n &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xF0F0F0F0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x0F0F0F0F &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        n &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xcccccccc &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x33333333 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        n &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xaaaaaaaa &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x55555555 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;go-solution&quot;&gt;Go solution&lt;a class=&quot;anchor&quot; href=&quot;#go-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;func &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;reverseBits&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;num &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;uint32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;uint32 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+        num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xFFFF0000 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;16&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x0000FFFF &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;16&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xFF00FF00 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;8&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x00FF00FF &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;8&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xF0F0F0F0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x0F0F0F0F &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xcccccccc &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x33333333 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0xaaaaaaaa &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0x55555555 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+            <item>
+                <title>Number of 1 Bits</title>
+                <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+                <link>https://sjung95.github.io/algorithms/binary/number-of-one/</link>
+                <guid>https://sjung95.github.io/algorithms/binary/number-of-one/</guid>
+                <description>&lt;h2 id=&quot;how-to-solve&quot;&gt;How to solve&lt;a class=&quot;anchor&quot; href=&quot;#how-to-solve&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Flip the least significant 1-bit to 0.
+&lt;ul&gt;
+&lt;li&gt;To do this, AND n with n-1.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Add 1 to the count of number of 1 bits.&lt;&#x2F;li&gt;
+&lt;li&gt;Repeat this until n is 0.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;complexity-analysis&quot;&gt;Complexity Analysis&lt;a class=&quot;anchor&quot; href=&quot;#complexity-analysis&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;time-o-n&quot;&gt;Time: O(N)&lt;a class=&quot;anchor&quot; href=&quot;#time-o-n&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;Linear time with respect to the number of bits. In the worst case, if every bit is 1, we will have to iterate N times.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;space-o-1&quot;&gt;Space: O(1)&lt;a class=&quot;anchor&quot; href=&quot;#space-o-1&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;No extra space is used.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-solution&quot;&gt;Python solution&lt;a class=&quot;anchor&quot; href=&quot;#python-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;class &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ffc66d;&quot;&gt;Solution&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;hammingWeight&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;n&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+        num_of_one &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;while &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n:
+            n &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;n &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;num_of_one &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;num_of_one
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;go-solution&quot;&gt;Go solution&lt;a class=&quot;anchor&quot; href=&quot;#go-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;func &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;hammingWeight&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;num &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;uint32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d0d0ff;&quot;&gt;num_of_one &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;:= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;!= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+        num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;)
+        num_of_one &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;}
+
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num_of_one
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;rust-solution&quot;&gt;Rust solution&lt;a class=&quot;anchor&quot; href=&quot;#rust-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;Solution {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;hammingWeight &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;n&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;u32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; n;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num_one &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;while&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;!= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; temp &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;);
+            num &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; temp;
+            num_one &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;;
+        }
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; num_one;
+    }
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+            <item>
+                <title>Sum of Two Integers</title>
+                <pubDate>Tue, 12 May 2020 00:00:00 +0000</pubDate>
+                <link>https://sjung95.github.io/algorithms/binary/sum-two-int/</link>
+                <guid>https://sjung95.github.io/algorithms/binary/sum-two-int/</guid>
+                <description>&lt;h2 id=&quot;how-to-solve&quot;&gt;How to solve&lt;a class=&quot;anchor&quot; href=&quot;#how-to-solve&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;For Python&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Since python has infinite bit representation, we need to keep track of only the last 32 bits. To do this, we will use a mask (which is 32 1 bits) and a max_positive number, which is the maximum positive number possible in 32 bit system (this max_pos number has 31 1 bits).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;In a while loop, we will compute the sum. This is done by XORing a and b (then ANDing with the mask to keep only the last 32 bits), and ANDing a and b then left shifting by 1 (this is done to keep track of the carry). Then this is also ANDed with the mask to keep the last 32 bits.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;When there is no carry, we can return our answer.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;If a is less than or equal to the max possible number, we can simply return a.&lt;&#x2F;li&gt;
+&lt;li&gt;Otherwise, we need to return the negative number represented by a (i.e. the sign bit (the leftmost bit is set to 1)). To do so, we need to use tilde. ~ flips the bits and reads the number as negative. However, we do not need to flip the bits since a is already negative. Thus, we simply flip a&#x27;s bits first by XORing a with the mask before using ~.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;ul&gt;
+&lt;li&gt;For Go, Rust&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ol&gt;
+&lt;li&gt;The idea is largely the same as the python solution. We do not need the mask or the max pos variable.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;complexity-analysis&quot;&gt;Complexity Analysis&lt;a class=&quot;anchor&quot; href=&quot;#complexity-analysis&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;time-o-n&quot;&gt;Time: O(N)&lt;a class=&quot;anchor&quot; href=&quot;#time-o-n&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;Linear time with respect to the number of bits.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;space-o-1&quot;&gt;Space: O(1)&lt;a class=&quot;anchor&quot; href=&quot;#space-o-1&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h3&gt;
+&lt;p&gt;No extra space is used.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-solution&quot;&gt;Python solution&lt;a class=&quot;anchor&quot; href=&quot;#python-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;class &lt;&#x2F;span&gt;&lt;span style=&quot;text-decoration:underline;color:#ffc66d;&quot;&gt;Solution&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#3bc0f0;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;getSum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+        mask &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;**&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;32 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;max_pos &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;**&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;31 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;while &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;b:
+            a, b &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(a&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;b) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;mask, ((a&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;b) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;mask
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;a &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;max_pos:
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;a
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;else&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;:
+            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return ~&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(a&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;mask)
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;go-solution&quot;&gt;Go solution&lt;a class=&quot;anchor&quot; href=&quot;#go-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;func &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;getSum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;a &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;b &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; b &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;!= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+        a, b &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(a&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;b), (a&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;b) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;}
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; a
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;rust-solution&quot;&gt;Rust solution&lt;a class=&quot;anchor&quot; href=&quot;#rust-solution&quot;&gt;§&lt;&#x2F;a&gt;&amp;nbsp;&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#383838;&quot;&gt;
+&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;Solution {
+    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;pub &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffc66d;&quot;&gt;get_sum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;) -&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;i32 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; sum &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; a;
+        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; carry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; b;
+
+        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;while&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; carry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;!= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;{
+            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; new_sum &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; sum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;^&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;carry;
+            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#6e9cbe;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; new_carry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;(sum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;carry) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;&amp;lt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a5c261;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt;;
+
+            sum &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; new_sum;
+            carry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cc7833;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6e1dc;&quot;&gt; new_carry;
+        }
+        sum
+    }
+}
+&lt;&#x2F;span&gt;&lt;&#x2F;pre&gt;</description>
+            </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title>FUNZONE</title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+        <ul id="breadcrumbs">
+          
+            <li>/<a href="/tags/">tags</a>&nbsp;</li> 
+          
+            <li>/<a href="/authors/">authors</a>&nbsp;</li> 
+          
+        </ul>
+        <h1>FUNZONE</h1>  
+          
+    <a href="javascript:void(0);" onclick="burger()" id="mobile">&#9776;</a>
+        <ul id="bger">
+        
+              
+            <li><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAaElEQVRIx2NgGOqAEcZgZefQb25suIBPcW19g8Hvnz8ukmwBKzuHQHNjw3tiNFRUVDCSZAExLicX1NY3ODJ2dHT8ZxgF+OKA1kHERGsfjFowasGoBaMWEGNBbX2DI60Mr61vkBr69QEAFDIY9Yz1owAAAAAASUVORK5CYII=" width="16px" />&nbsp;<a href="https://sjung95.github.io/algorithms/">Algorithms</a></li>
+            
+              
+            <li><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAaElEQVRIx2NgGOqAEcZgZefQb25suIBPcW19g8Hvnz8ukmwBKzuHQHNjw3tiNFRUVDCSZAExLicX1NY3ODJ2dHT8ZxgF+OKA1kHERGsfjFowasGoBaMWEGNBbX2DI60Mr61vkBr69QEAFDIY9Yz1owAAAAAASUVORK5CYII=" width="16px" />&nbsp;<a href="https://sjung95.github.io/test_content/">Test content</a></li>
+            
+            
+        </ul>
+
+      
+      </nav>
+
+      <main>
+      
+
+        
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+            
+          
+            
+            
+          
+        
+
+        
+            <ul id="toc">
+              
+                <li><a href="https://sjung95.github.io/#perks">Perks</a>
+                
+              </li>
+        
+                <li><a href="https://sjung95.github.io/#6-steps-build-your-knowledge-base-docs-repo">6 steps build your knowledge base&#x2F;docs repo</a>
+                
+              </li>
+        
+                <li><a href="https://sjung95.github.io/#how-to-structure-your-content">How to structure your content</a>
+                <ul>        
+                  
+                  <li><a href="https://sjung95.github.io/#folders">Folders</a></li>
+                
+                  <li><a href="https://sjung95.github.io/#pages">Pages</a></li>
+                
+              </ul>
+        
+              </li>
+        
+            </ul>
+        
+
+        <article>
+        <p>I was inspired by <a href="https://www.linode.com/2020/01/17/docs-as-code-at-linode/">Linode's approach</a> to creating and managing docs. They call it <em>docs as code methodology.</em>  Thereby, my aim was making simple and productive way to work with any sort of documents and articles through Markdown, Git and Docker/k8s optionally. </p>
+<p>The repo contains a theme for <a href="https://www.getzola.org/">Zola</a> (the best static site generator I've ever seen) and dockerfile for building Docker images with Nginx-alpine. You can push to your Docker an <a href="https://hub.docker.com/r/codeandmedia/docsascode-theme">image with demo-content</a></p>
+<pre style="background-color:#383838;">
+<span style="color:#e6e1dc;">codeandmedia/docsascode-theme:latest
+</span></pre><h2 id="perks">Perks<a class="anchor" href="#perks">§</a>&nbsp;</h2>
+<ul>
+<li>light / dark switcher</li>
+<li>tags and authors taxonomies by default</li>
+<li>search</li>
+<li>useful UI both on mobiles and desktops </li>
+</ul>
+<h2 id="6-steps-build-your-knowledge-base-docs-repo">6 steps build your knowledge base/docs repo<a class="anchor" href="#6-steps-build-your-knowledge-base-docs-repo">§</a>&nbsp;</h2>
+<ol>
+<li>Fork the repo </li>
+<li>delete demo content and add your own (I explain how to structure it below) </li>
+<li>change website name and domain in config.toml, also, change the title in _index.md in a root</li>
+<li>connect your repo to dockerhub </li>
+<li>build your docker image or setup <a href="https://docs.docker.com/docker-hub/builds/">autobuilds</a></li>
+<li>host a builded docker image on your own way</li>
+</ol>
+<p>But, zola is amazing static site generator, so you feel free to</p>
+<ol>
+<li>download all repo files</li>
+<li>again delete demo content and add your own</li>
+<li>change name and domain in config.toml/index.md</li>
+<li>setup zola (win, linux, mac)</li>
+<li>execute zola build</li>
+<li>host builded html-output anywhere you want</li>
+</ol>
+<p>Zola supports Netlify and other similar services, or you can decide to create your own CI/CD process. </p>
+<h2 id="how-to-structure-your-content">How to structure your content<a class="anchor" href="#how-to-structure-your-content">§</a>&nbsp;</h2>
+<p>All your articles should be inside <em>content</em> folder. Any images, videos, other static files should be inside <em>static.</em> </p>
+<h3 id="folders">Folders<a class="anchor" href="#folders">§</a>&nbsp;</h3>
+<p>Every folder should contains _index.md like </p>
+<pre style="background-color:#383838;">
+<span style="background-color:#b90622;color:#f8f8f0;">+++</span><span style="color:#e6e1dc;">
+</span><span style="color:#e8bf6a;">title </span><span style="color:#e6e1dc;">= </span><span style="color:#c1be91;">&quot;Docsascode title&quot;
+</span><span style="color:#e8bf6a;">description </span><span style="color:#e6e1dc;">= </span><span style="color:#c1be91;">&quot;Description is optional&quot;
+</span><span style="color:#e8bf6a;">sort_by </span><span style="color:#e6e1dc;">= </span><span style="color:#c1be91;">&quot;date&quot; </span><span style="color:#95815e;"># sort by weight or date
+</span><span style="color:#e8bf6a;">insert_anchor_links </span><span style="color:#e6e1dc;">= </span><span style="color:#c1be91;">&quot;right&quot; </span><span style="color:#95815e;"># if you want § next to headers</span><span style="color:#e6e1dc;">
++++
+</span></pre>
+<p>Each folder is the section of the website, it means if you create folder foo it will be seen as <em>yoursitedomain.com/foo</em></p>
+<p>The theme supports folders in folders and articles + folders in one folder (see an example inside <em>content</em>). So you can store inside folder another folders and describe in index some specific details. </p>
+<h3 id="pages">Pages<a class="anchor" href="#pages">§</a>&nbsp;</h3>
+<p>A page should be started by </p>
+<pre style="background-color:#383838;">
+<span style="background-color:#b90622;color:#f8f8f0;">+++</span><span style="color:#e6e1dc;">
+</span><span style="color:#e8bf6a;">title </span><span style="color:#e6e1dc;">= </span><span style="color:#c1be91;">&quot;File and folders in folder&quot;
+</span><span style="color:#e8bf6a;">date </span><span style="color:#e6e1dc;">= </span><span style="color:#6d9cbe;">2020-01-18 </span><span style="color:#95815e;"># or weight 
+</span><span style="color:#e8bf6a;">description </span><span style="color:#e6e1dc;">= </span><span style="color:#c1be91;">&quot;Description&quot;
+</span><span style="color:#e8bf6a;">insert_anchor_links </span><span style="color:#e6e1dc;">= </span><span style="color:#c1be91;">&quot;right&quot;
+
+</span><span style="color:#e6e1dc;">[</span><span style="color:#e8bf6a;">taxonomies</span><span style="color:#e6e1dc;">] </span><span style="color:#95815e;">#all taxonomies is optional
+</span><span style="color:#e8bf6a;">tags </span><span style="color:#e6e1dc;">= [</span><span style="color:#c1be91;">&quot;newtag&quot;</span><span style="color:#e6e1dc;">]
+</span><span style="color:#e8bf6a;">authors </span><span style="color:#e6e1dc;">= [</span><span style="color:#c1be91;">&quot;John Doe&quot;</span><span style="color:#e6e1dc;">]
++++
+</span></pre>
+<p>Zola allows to create drafts:</p>
+<pre style="background-color:#383838;">
+<span style="color:#e8bf6a;">draft </span><span style="color:#e6e1dc;">= </span><span style="color:#6e9cbe;">true
+</span></pre>
+<p>Also, by default you have two taxonomies: <em>tags</em> and <em>authors</em>. It's optional, not necessary to use it on all pages. And you can add your own taxonomy:</p>
+<ol>
+<li>Copy tags or authors folder and rename it to your taxonomy</li>
+<li>Add your taxonomy to config.toml</li>
+<li>Add to page.html template code like </li>
+</ol>
+<pre style="background-color:#383838;">
+<span style="color:#e6e1dc;">    {</span><span style="color:#cc7833;">% if</span><span style="color:#e6e1dc;"> page.taxonomies.yourtaxonomynameplural </span><span style="color:#cc7833;">%</span><span style="color:#e6e1dc;">}
+      </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;">ul</span><span style="color:#cc7833;">&gt;
+      </span><span style="color:#e6e1dc;">{</span><span style="color:#cc7833;">% for</span><span style="color:#e6e1dc;"> tag </span><span style="color:#cc7833;">in</span><span style="color:#e6e1dc;"> page.taxonomies.yourtaxonomynameplural </span><span style="color:#cc7833;">%</span><span style="color:#e6e1dc;">}
+        </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;">li</span><span style="color:#cc7833;">&gt;&lt;</span><span style="color:#e6e1dc;">a href</span><span style="color:#cc7833;">=</span><span style="color:#c1be91;">&quot;{{ get_taxonomy_url(kind=&quot;</span><span style="color:#e6e1dc;">yourtaxonomynameplural</span><span style="color:#c1be91;">&quot;, name=yourtaxonomyname) | safe }}&quot; </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;">{{ yourtaxonomyname }}</span><span style="color:#cc7833;">&lt;/</span><span style="color:#e6e1dc;">a</span><span style="color:#cc7833;">&gt;&lt;/</span><span style="color:#e6e1dc;">li</span><span style="color:#cc7833;">&gt;
+      </span><span style="color:#e6e1dc;">{</span><span style="color:#cc7833;">%</span><span style="color:#e6e1dc;"> endfor </span><span style="color:#cc7833;">%</span><span style="color:#e6e1dc;">}
+      </span><span style="color:#cc7833;">&lt;/</span><span style="color:#e6e1dc;">ul</span><span style="color:#cc7833;">&gt;
+    </span><span style="color:#e6e1dc;">{</span><span style="color:#cc7833;">%</span><span style="color:#e6e1dc;"> endif </span><span style="color:#cc7833;">%</span><span style="color:#e6e1dc;">}
+</span></pre>
+<p>Done. I told you Zola is amazing :) </p>
+<p>Anyway you can rewrite theme for your own wishes with Zola (<a href="https://www.getzola.org/documentation/getting-started/installation/">link to documentation</a>)</p>
+
+        </article>
+      
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

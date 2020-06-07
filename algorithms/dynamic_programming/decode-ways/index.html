@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Decode Ways </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;dynamic_programming&#x2F;">Dynamic Programming</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Decode Ways</h1><em>Dynamic Programming</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 23, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/dynamic-programming/" >#Dynamic Programming</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/decode-ways/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/decode-ways/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/decode-ways/#time-o-n">Time: O(N)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/decode-ways/#space-o-n">Space: O(N)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/decode-ways/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/decode-ways/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/decode-ways/#rust-solution">Rust solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>Check the base cases first. If the string is empty or if the first letter in the string is a '0', return 0.</li>
+<li>Initialize a dp array of zeroes with length as the length of string. This dp array will contain how many ways to decode up to and including the index.</li>
+<li>Set the first element in the dp array to 1, since there is 1 way to decode one character (we don't have to worry that the first character will be '0' since we checked for it in step 1).</li>
+<li>Iterate through the string from index 1 until the end.
+<ul>
+<li>If the current character is not 0, this means this character can be decoded on its own. Thus, add the ways to decode up to and including the char at i-1 (dp[i-1]) and add it to dp[i].</li>
+<li>If the character before and the current character make up a number in [10, 26].
+<ul>
+<li>If i == 1 (this is the special one-off case to check to prevent out-of-bounds index error), add 1 to the number of ways to decode to dp[1].</li>
+<li>Ohterwise, add dp[i-2] ways to dp[i].</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return the last element in the dp array.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-n">Time: O(N)<a class="anchor" href="#time-o-n">§</a>&nbsp;</h3>
+<p>We iterate through all the characters of string s.</p>
+<h3 id="space-o-n">Space: O(N)<a class="anchor" href="#space-o-n">§</a>&nbsp;</h3>
+<p>We utilize a dp array that has size of length of string s.</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">numDecodings</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">s</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">str</span><span style="color:#e6e1dc;">) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">if not </span><span style="color:#e6e1dc;">s:
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+
+        </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">s[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">&#39;0&#39;</span><span style="color:#e6e1dc;">:
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+
+        </span><span style="color:#e6e1dc;">dp </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[</span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_ </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(s))]
+
+        dp[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">1
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(s)):
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">s[i] </span><span style="color:#cc7833;">!= </span><span style="color:#a5c261;">&#39;0&#39;</span><span style="color:#e6e1dc;">:
+                dp[i] </span><span style="color:#cc7833;">+= </span><span style="color:#e6e1dc;">dp[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+            </span><span style="color:#cc7833;">if </span><span style="color:#a5c261;">10 </span><span style="color:#cc7833;">&lt;= </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">(s[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">:i</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) </span><span style="color:#cc7833;">&lt;= </span><span style="color:#a5c261;">26</span><span style="color:#e6e1dc;">:
+                </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">:
+                    dp[i] </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+                </span><span style="color:#cc7833;">else</span><span style="color:#e6e1dc;">:
+                    dp[i] </span><span style="color:#cc7833;">+= </span><span style="color:#e6e1dc;">dp[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">]
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">dp[</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">numDecodings</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">s </span><span style="font-style:italic;color:#6e9cbe;">string</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(s) </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+    </span><span style="color:#e6e1dc;">}
+
+    </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> s[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">&#39;0&#39; </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+    </span><span style="color:#e6e1dc;">}
+
+    </span><span style="color:#d0d0ff;">dp </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">([] </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(s))
+    dp[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">1
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt; </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(s); i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> s[i] </span><span style="color:#cc7833;">!= </span><span style="color:#a5c261;">&#39;0&#39; </span><span style="color:#e6e1dc;">{
+            dp[i] </span><span style="color:#cc7833;">+=</span><span style="color:#e6e1dc;"> dp[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+        }
+        </span><span style="color:#d0d0ff;">num </span><span style="color:#cc7833;">:= </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">(s[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">&#39;0&#39;</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">* </span><span style="color:#a5c261;">10 </span><span style="color:#cc7833;">+ </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">(s[i] </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">&#39;0&#39;</span><span style="color:#e6e1dc;">)
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> num </span><span style="color:#cc7833;">&gt;= </span><span style="color:#a5c261;">10 </span><span style="color:#cc7833;">&amp;&amp;</span><span style="color:#e6e1dc;"> num </span><span style="color:#cc7833;">&lt;= </span><span style="color:#a5c261;">26 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+                dp[i] </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+            </span><span style="color:#e6e1dc;">} </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+                dp[i] </span><span style="color:#cc7833;">+=</span><span style="color:#e6e1dc;"> dp[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">]
+            }
+        }
+    }
+    </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> dp[</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(s) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+}
+</span></pre><h2 id="rust-solution">Rust solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">num_decodings</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">s</span><span style="color:#e6e1dc;">: String) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">i32 </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> s.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+        }
+
+        </span><span style="font-style:italic;color:#6e9cbe;">let</span><span style="color:#e6e1dc;"> char_array </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> s.</span><span style="color:#da4939;">as_bytes</span><span style="color:#e6e1dc;">();
+
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> char_array[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">== </span><span style="font-style:italic;color:#6e9cbe;">b</span><span style="color:#a5c261;">&#39;0&#39; </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+        }
+
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> dp </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">vec![</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; s.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">()];
+        dp[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">1</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">s.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() {
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> char_array[i] </span><span style="color:#cc7833;">!= </span><span style="font-style:italic;color:#6e9cbe;">b</span><span style="color:#a5c261;">&#39;0&#39; </span><span style="color:#e6e1dc;">{
+                dp[i] </span><span style="color:#cc7833;">+=</span><span style="color:#e6e1dc;"> dp[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">];
+            }
+            </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> num </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">(char_array[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">- </span><span style="font-style:italic;color:#6e9cbe;">b</span><span style="color:#a5c261;">&#39;0&#39;</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">* </span><span style="color:#a5c261;">10 </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(char_array[i] </span><span style="color:#cc7833;">- </span><span style="font-style:italic;color:#6e9cbe;">b</span><span style="color:#a5c261;">&#39;0&#39;</span><span style="color:#e6e1dc;">);
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> num </span><span style="color:#cc7833;">&gt;=</span><span style="color:#a5c261;">10 </span><span style="color:#cc7833;">&amp;&amp;</span><span style="color:#e6e1dc;"> num </span><span style="color:#cc7833;">&lt;= </span><span style="color:#a5c261;">26 </span><span style="color:#e6e1dc;">{
+                </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+                    dp[i] </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+                }
+                </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+                    dp[i] </span><span style="color:#cc7833;">+=</span><span style="color:#e6e1dc;"> dp[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">];
+                }
+            }
+        }
+        dp[s.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+    }
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

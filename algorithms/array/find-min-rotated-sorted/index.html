@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Find Minimum in a Rotated Sorted Array </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;array&#x2F;">Array</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Find Minimum in a Rotated Sorted Array</h1><em>Array</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 11, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/array/" >#Array</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/array/find-min-rotated-sorted/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/find-min-rotated-sorted/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/array/find-min-rotated-sorted/#time-o-logn">Time: O(logN)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/array/find-min-rotated-sorted/#space-o-1">Space: O(1)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/find-min-rotated-sorted/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/find-min-rotated-sorted/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/find-min-rotated-sorted/#rust-solution">Rust solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>We will perform a binary search.</li>
+<li>Set lo to 0 and hi to the last index.</li>
+<li>If array is already in sorted order, return the first element.</li>
+<li>Otherwise, search for the minimum.
+<ul>
+<li>Set mid to the middle of lo and hi. </li>
+<li>If nums[mid] is greater than nums[mid+1], mid+1 is our min. Return.</li>
+<li>If nums[mid] is less than nums[mid-1], mid is our min. Return.</li>
+<li>Otherwise, adjust lo or hi.
+<ul>
+<li>If nums[mid] &gt; nums[lo], we need to search the right of mid. So set lo = mid + 1.</li>
+<li>If nums[mid] &lt; nums[hi], we need to search the left of mid. So set hi = mid - 1.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Set default return to nums[lo].</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-logn">Time: O(logN)<a class="anchor" href="#time-o-logn">§</a>&nbsp;</h3>
+<p>We binary search the array.</p>
+<h3 id="space-o-1">Space: O(1)<a class="anchor" href="#space-o-1">§</a>&nbsp;</h3>
+<p>We do not use extra space.</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">findMin</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">:
+        lo </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+        </span><span style="color:#e6e1dc;">hi </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+        </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">nums[hi] </span><span style="color:#cc7833;">&gt;= </span><span style="color:#e6e1dc;">nums[lo]:
+            </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">nums[lo]
+
+        </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">lo </span><span style="color:#cc7833;">&lt;= </span><span style="color:#e6e1dc;">hi:
+            mid </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">lo </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(hi </span><span style="color:#cc7833;">- </span><span style="color:#e6e1dc;">lo) </span><span style="color:#cc7833;">// </span><span style="color:#a5c261;">2
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">nums[mid] </span><span style="color:#cc7833;">&gt; </span><span style="color:#e6e1dc;">nums[mid</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]:
+                </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">nums[mid</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">nums[mid] </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">nums[mid</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]:
+                </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">nums[mid]
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">nums[mid] </span><span style="color:#cc7833;">&gt; </span><span style="color:#e6e1dc;">nums[lo]:
+                lo </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">mid </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">nums[mid] </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">nums[hi]:
+                hi </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">mid </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">nums[lo]
+
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">findMin</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums </span><span style="color:#e6e1dc;">[]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#d0d0ff;">lo </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0
+    </span><span style="color:#d0d0ff;">hi </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+    </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[hi] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> nums[lo] {
+        </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[lo]
+    }
+
+    </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> lo </span><span style="color:#cc7833;">&lt;=</span><span style="color:#e6e1dc;"> hi {
+        </span><span style="color:#d0d0ff;">mid </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> lo </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(hi </span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;"> lo) </span><span style="color:#cc7833;">/ </span><span style="color:#a5c261;">2
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[mid] </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> nums[mid</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] {
+            </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[mid</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+        }
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[mid] </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> nums[mid</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] {
+            </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[mid]
+        }
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[lo] </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> nums[mid] {
+            lo </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1
+        </span><span style="color:#e6e1dc;">}
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[hi] </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> nums[mid]  {
+            hi </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+        </span><span style="color:#e6e1dc;">}
+    }
+    </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[lo]
+}
+</span></pre><h2 id="rust-solution">Rust solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">find_min</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">i32 </span><span style="color:#e6e1dc;">{
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> lo </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> hi </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[hi] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> nums[lo] {
+            </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[lo]
+        }
+
+        </span><span style="color:#cc7833;">while</span><span style="color:#e6e1dc;"> lo </span><span style="color:#cc7833;">&lt;=</span><span style="color:#e6e1dc;"> hi {
+            </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> lo </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">(hi </span><span style="color:#cc7833;">-</span><span style="color:#e6e1dc;"> lo) </span><span style="color:#cc7833;">/ </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">;
+
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[mid] </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> nums[mid </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] {
+                </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[mid</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+            }
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[mid] </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> nums[mid </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] {
+                </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[mid]
+            }
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[mid] </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> nums[lo] {
+                lo </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1
+            </span><span style="color:#e6e1dc;">}
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums[hi] </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> nums[mid] {
+                hi </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> mid </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+            </span><span style="color:#e6e1dc;">}
+        }
+        nums[lo]
+    }
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

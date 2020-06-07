@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Course Schedule </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;graph&#x2F;">Graph</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Course Schedule</h1><em>Graph</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 26, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/graph/" >#Graph</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/graph/course-schedule/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/course-schedule/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/graph/course-schedule/#time-o-v-e">Time: O(V+E)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/graph/course-schedule/#space-o-v-e">Space: O(V+E)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/course-schedule/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/course-schedule/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/course-schedule/#rust-solution">Rust Solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<p>The key is to use topological sort in order to detect cycles.</p>
+<ol>
+<li>Construct a graph in which vertices are the courses and edges are the prerequisite dependencies.
+<ul>
+<li>We keep a representation of the dependencies in a hash map, where the keys are courses and the values are prerequisites needed to take the courses.</li>
+</ul>
+</li>
+<li>Next, we will check for cycles by using two sets (a visiting set - for course(s) we are currently visiting and checking if there are any cycles, and a visited set - for courses that have already been checked to not have any cycles).</li>
+<li>Perform a DFS on all the courses. If we find a cycle for any of the courses, we cannot finish so we return False. Otherwise, we can finish and return True.</li>
+<li>DFS:
+<ul>
+<li>We know that there is a cycle if the current course we are checking is already in the visiting set.</li>
+<li>We know that we do not need to check the course we are currently checking if it is in the visited set.</li>
+<li>After these checks, we add the course to the visiting set to mark it as visiting.</li>
+<li>If the course is a key in the prereq dependencies hash map, we have to iterate through all its prereqs to make sure there are no cycles. So recursively call has_cycle_dfs on all its prereqs.</li>
+<li>If we find a cycle, we cannot finish the courses.</li>
+<li>If no cycles are found for the course we are considering, we take it out of visiting and put it in visited.</li>
+</ul>
+</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-v-e">Time: O(V+E)<a class="anchor" href="#time-o-v-e">§</a>&nbsp;</h3>
+<p>Here, V represents the courses and E represents all the dependencies (i.e. prereq to course links). It takes V+E time to construct the hash map and in the worst case, we iterate through the whole graph, which means it takes V+E times.</p>
+<h3 id="space-o-v-e">Space: O(V+E)<a class="anchor" href="#space-o-v-e">§</a>&nbsp;</h3>
+<p>Our hash map (that represents the dependencies) is of size V+E.</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">canFinish</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">numCourses</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">prerequisites</span><span style="color:#e6e1dc;">: List[List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]]) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">:
+        </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">has_cycle_dfs</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">course</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">dict_prereq</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">visited</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">visiting</span><span style="color:#e6e1dc;">):
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">course </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">visiting:
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">True
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">course </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">visited:
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">False
+
+            </span><span style="color:#e6e1dc;">visiting.add(course)
+
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">course </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">dict_prereq:
+                prereqs </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">dict_prereq[course]
+                </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">prereq </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">prereqs:
+                    </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">has_cycle_dfs(prereq, dict_prereq, visited, visiting):
+                        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">True
+
+            </span><span style="color:#e6e1dc;">visiting.remove(course)
+            visited.add(course)
+
+            </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">False
+
+
+        </span><span style="color:#e6e1dc;">dict_prereq </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">{}
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">course_pair </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">prerequisites:
+            course </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">course_pair[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">]
+            prereq </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">course_pair[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">course </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">dict_prereq:
+                dict_prereq[course].append(prereq)
+            </span><span style="color:#cc7833;">else</span><span style="color:#e6e1dc;">:
+                dict_prereq[course] </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[prereq]
+
+        visited </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">set</span><span style="color:#e6e1dc;">()
+        visiting </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">set</span><span style="color:#e6e1dc;">()
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">course </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">dict_prereq:
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">has_cycle_dfs(course, dict_prereq, visited, visiting):
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">False
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">True
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">canFinish</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">numCourses </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">prerequisites</span><span style="color:#e6e1dc;"> [][]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">bool </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#d0d0ff;">dict_prereq </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">][]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">)
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">course_pair </span><span style="color:#cc7833;">:= range</span><span style="color:#e6e1dc;"> prerequisites {
+        </span><span style="color:#d0d0ff;">course </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> course_pair[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">]
+        </span><span style="color:#d0d0ff;">prereq </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> course_pair[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]
+
+        </span><span style="color:#cc7833;">if </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">in_dict </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> dict_prereq[course]; in_dict {
+            dict_prereq[course] </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">append</span><span style="color:#e6e1dc;">(dict_prereq[course], prereq)
+        } </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+            dict_prereq[course] </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">{prereq}
+        }
+    }
+    </span><span style="color:#d0d0ff;">visited </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">)
+    </span><span style="color:#d0d0ff;">visiting </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">)
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">course</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">_ </span><span style="color:#cc7833;">:= range</span><span style="color:#e6e1dc;"> dict_prereq {
+        </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">has_cycle_dfs(course, dict_prereq, visited, visiting) {
+            </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">false
+        </span><span style="color:#e6e1dc;">}
+    }
+    </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true
+</span><span style="color:#e6e1dc;">}
+
+</span><span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">has_cycle_dfs</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">course </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">dict_prereq </span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">][]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">visited </span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">visiting </span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">bool </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#cc7833;">if </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">in_visiting </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> visiting[course]; in_visiting {
+        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true
+    </span><span style="color:#e6e1dc;">}
+    </span><span style="color:#cc7833;">if </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">in_visited </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> visited[course]; in_visited {
+        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">false
+    </span><span style="color:#e6e1dc;">}
+
+    visiting[course] </span><span style="color:#cc7833;">= </span><span style="color:#6e9cbe;">true
+
+    </span><span style="color:#cc7833;">if </span><span style="color:#d0d0ff;">prereqs</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">in_dict </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> dict_prereq[course]; in_dict {
+        </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">prereq </span><span style="color:#cc7833;">:= range</span><span style="color:#e6e1dc;"> prereqs {
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">has_cycle_dfs(prereq, dict_prereq, visited, visiting) {
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true
+            </span><span style="color:#e6e1dc;">}
+        }
+    }
+    </span><span style="color:#da4939;">delete</span><span style="color:#e6e1dc;">(visiting, course)
+    visited[course] </span><span style="color:#cc7833;">= </span><span style="color:#6e9cbe;">true
+
+    </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">false
+</span><span style="color:#e6e1dc;">}
+</span></pre><h2 id="rust-solution">Rust Solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="color:#cc7833;">use </span><span style="color:#e6e1dc;">std::collections::{HashMap, HashSet};
+</span><span style="color:#cc7833;">use </span><span style="color:#e6e1dc;">std::collections::hash_map::Entry;
+
+</span><span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">can_finish</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">num_courses</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">prerequisites</span><span style="color:#e6e1dc;">: Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt;) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">bool </span><span style="color:#e6e1dc;">{
+        </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">has_cycle_dfs</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">course</span><span style="color:#e6e1dc;">: </span><span style="color:#cc7833;">&amp;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">, </span><span style="color:#cc7833;">mut </span><span style="font-style:italic;color:#fd971f;">visiting</span><span style="color:#e6e1dc;">: </span><span style="color:#cc7833;">&amp;mut </span><span style="color:#e6e1dc;">HashSet&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;, </span><span style="color:#cc7833;">mut </span><span style="font-style:italic;color:#fd971f;">visited</span><span style="color:#e6e1dc;">: </span><span style="color:#cc7833;">&amp;mut </span><span style="color:#e6e1dc;">HashSet&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;, </span><span style="font-style:italic;color:#fd971f;">dict_prereq</span><span style="color:#e6e1dc;">: </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">HashMap&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">, Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt;) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">bool </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> visiting.</span><span style="color:#da4939;">contains</span><span style="color:#e6e1dc;">(course) {
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true</span><span style="color:#e6e1dc;">;
+            }
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> visited.</span><span style="color:#da4939;">contains</span><span style="color:#e6e1dc;">(course) {
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">false</span><span style="color:#e6e1dc;">;
+            }
+
+            visiting.</span><span style="color:#da4939;">insert</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">*</span><span style="color:#e6e1dc;">course);
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> dict_prereq.</span><span style="color:#da4939;">contains_key</span><span style="color:#e6e1dc;">(course) {
+                </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> prereq </span><span style="color:#cc7833;">in &amp;</span><span style="color:#e6e1dc;">dict_prereq[course] {
+                    </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">has_cycle_dfs</span><span style="color:#e6e1dc;">(prereq, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> visiting, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> visited, </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">dict_prereq) {
+                        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">true</span><span style="color:#e6e1dc;">;
+                    }
+                }
+            }
+            visiting.</span><span style="color:#da4939;">remove</span><span style="color:#e6e1dc;">(course);
+            visited.</span><span style="color:#da4939;">insert</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">*</span><span style="color:#e6e1dc;">course);
+            </span><span style="color:#6e9cbe;">false
+        </span><span style="color:#e6e1dc;">}
+
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> dict_prereq: HashMap&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">, Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt; </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">HashMap::with_capacity(prerequisites.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">());
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> course_pair </span><span style="color:#cc7833;">in</span><span style="color:#e6e1dc;"> prerequisites {
+            </span><span style="font-style:italic;color:#6e9cbe;">let</span><span style="color:#e6e1dc;"> course </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> course_pair[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">];
+            </span><span style="font-style:italic;color:#6e9cbe;">let</span><span style="color:#e6e1dc;"> prereq </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> course_pair[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">];
+
+            </span><span style="color:#cc7833;">match</span><span style="color:#e6e1dc;"> dict_prereq.</span><span style="color:#da4939;">entry</span><span style="color:#e6e1dc;">(course) {
+                Entry::Vacant(entry) </span><span style="color:#cc7833;">=&gt; </span><span style="color:#e6e1dc;">{ entry.</span><span style="color:#da4939;">insert</span><span style="color:#e6e1dc;">(vec![prereq]); },
+                Entry::Occupied(</span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> entry) </span><span style="color:#cc7833;">=&gt; </span><span style="color:#e6e1dc;">{ entry.</span><span style="color:#da4939;">get_mut</span><span style="color:#e6e1dc;">().</span><span style="color:#da4939;">push</span><span style="color:#e6e1dc;">(prereq); }
+            };
+        }
+
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> visiting </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">HashSet::new();
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> visited </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">HashSet::new();
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> course </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">num_courses {
+            </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">has_cycle_dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">course, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> visiting, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> visited, </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">dict_prereq) {
+                </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">false</span><span style="color:#e6e1dc;">;
+            }
+        }
+        </span><span style="color:#6e9cbe;">true
+    </span><span style="color:#e6e1dc;">}
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

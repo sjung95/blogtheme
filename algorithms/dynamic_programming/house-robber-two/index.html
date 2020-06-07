@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | House Robber II </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;dynamic_programming&#x2F;">Dynamic Programming</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>House Robber II</h1><em>Dynamic Programming</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 21, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/dynamic-programming/" >#Dynamic Programming</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/house-robber-two/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/house-robber-two/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/house-robber-two/#time-o-n">Time: O(N)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/house-robber-two/#space-o-1">Space: O(1)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/house-robber-two/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/house-robber-two/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/dynamic_programming/house-robber-two/#rust-solution">Rust solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>First, check for a simple case. If the number of houses is less than 4, The maximum profit that can be made is the maximum of the money stashed at each house. This is because if there are less than 4 houses, a robber can only rob one house due to the circular arrangement nature.</li>
+<li>Otherwise, we solve the problem by splitting the problem in to two steps.
+<ul>
+<li>First step: iterate through from the house at index 1 to the last house (inclusive). Note that this is to avoid the case of robbing the last house and house at index 0 (which are adjacent houses since the houses are in circular arrangement).</li>
+<li>Second step: iterate through from house at index 9 to the second to last house (inclusive).</li>
+</ul>
+</li>
+<li>While iterating through each step, we keep track of the maximum profit made one house ago and the maximum profit made two houses ago.
+<ul>
+<li>The max profit made one house ago may or may not include that house one house ago, and the max profit made two houses ago may or may not include that house two houses ago.</li>
+<li>At a given house, update the max profit made &quot;two houses ago&quot; and max profit made &quot;one house ago&quot; (these updates have to happen in one line in the cases of python and go; rust requires temp variables).
+<ul>
+<li>Max profit made two houses ago gets updated to the max profit made one house ago.</li>
+<li>Max profit made one house ago gets updated (this is now including the given house) by taking the max of (profit made two houses ago + amount at a given house) and (profit made one house ago). Update the max profit made &quot;two houses ago.&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return the max of the final results at each step.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-n">Time: O(N)<a class="anchor" href="#time-o-n">§</a>&nbsp;</h3>
+<p>We iterate through the n-1 elements of the nums array twice. So O(2*(n-1)) = O(n).</p>
+<h3 id="space-o-1">Space: O(1)<a class="anchor" href="#space-o-1">§</a>&nbsp;</h3>
+<p>We use constant space by storing intermediate results in variables.</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">rob</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">if not </span><span style="color:#e6e1dc;">nums:
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+        </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">&lt; </span><span style="color:#a5c261;">4</span><span style="color:#e6e1dc;">:
+            </span><span style="color:#cc7833;">return </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(nums)
+
+        two_houses_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+        </span><span style="color:#e6e1dc;">one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums)):
+            two_houses_ago, one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">one_house_ago, </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(two_houses_ago </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">nums[i], one_house_ago)
+
+        result </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">one_house_ago
+
+        two_houses_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+        </span><span style="color:#e6e1dc;">one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">):
+            two_houses_ago, one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">one_house_ago, </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(two_houses_ago </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">nums[i], one_house_ago)
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(result, one_house_ago)
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">rob</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums </span><span style="color:#e6e1dc;">[]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#cc7833;">switch </span><span style="color:#d0d0ff;">nums_len </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums); nums_len {
+        </span><span style="color:#cc7833;">case </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+        </span><span style="color:#cc7833;">case </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> nums[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">]
+        </span><span style="color:#cc7833;">case </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">max(nums[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">], nums[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">])
+        </span><span style="color:#cc7833;">case </span><span style="color:#a5c261;">3</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">max(nums[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">], max(nums[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">], nums[</span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">]))
+    }
+
+    </span><span style="color:#d0d0ff;">two_houses_ago </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0
+    </span><span style="color:#d0d0ff;">one_house_ago </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt; </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums); i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        two_houses_ago, one_house_ago </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> one_house_ago, max(two_houses_ago </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[i], one_house_ago)
+    }
+
+    </span><span style="color:#d0d0ff;">result </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> one_house_ago
+    two_houses_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">
+    one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt; </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">; i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        two_houses_ago, one_house_ago </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> one_house_ago, max(two_houses_ago </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[i], one_house_ago)
+    }
+    </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">max(result, one_house_ago)
+}
+
+</span><span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">max</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">a</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">b </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> a </span><span style="color:#cc7833;">&gt;</span><span style="color:#e6e1dc;"> b {
+        </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> a
+    }
+    </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> b
+}
+</span></pre><h2 id="rust-solution">Rust solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="color:#cc7833;">use </span><span style="color:#e6e1dc;">std::cmp::max;
+
+</span><span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">rob</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">i32 </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">return </span><span style="color:#a5c261;">0
+        </span><span style="color:#e6e1dc;">}s
+        </span><span style="color:#cc7833;">match</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() {
+            </span><span style="color:#a5c261;">1 </span><span style="color:#cc7833;">=&gt; return</span><span style="color:#e6e1dc;"> nums[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">],
+            </span><span style="color:#a5c261;">2 </span><span style="color:#cc7833;">=&gt; return </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(nums[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">], nums[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]),
+            </span><span style="color:#a5c261;">3 </span><span style="color:#cc7833;">=&gt; return </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(nums[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">], </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(nums[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">], nums[</span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">])),
+            </span><span style="color:#cc7833;">_ =&gt; </span><span style="color:#e6e1dc;">{
+                </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> two_houses_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+                </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+
+                </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">1</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() {
+                    </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> prev_two </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> two_houses_ago;
+                    </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> prev_one </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> one_house_ago;
+                    two_houses_ago </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> one_house_ago;
+                    one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(prev_two </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[i], prev_one)
+                }
+
+                </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> result </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> one_house_ago;
+
+                two_houses_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+                one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">;
+
+                </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1 </span><span style="color:#e6e1dc;">{
+                    </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> prev_two </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> two_houses_ago;
+                    </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> prev_one </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> one_house_ago;
+                    two_houses_ago </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> one_house_ago;
+                    one_house_ago </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(prev_two </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[i], prev_one)
+                }
+
+                </span><span style="color:#cc7833;">return </span><span style="color:#da4939;">max</span><span style="color:#e6e1dc;">(one_house_ago, result)
+            }
+        }
+    }
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

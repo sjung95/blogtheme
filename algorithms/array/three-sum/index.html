@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Three Sum </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;array&#x2F;">Array</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Three Sum</h1><em>Array</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 11, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/array/" >#Array</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/array/three-sum/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/three-sum/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/array/three-sum/#time-o-n-2">Time: O(N^2)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/array/three-sum/#space-o-logn-with-python-s-timsort-or-o-n-with-quicksort">Space: O(logN) with Python&#x27;s Timsort or O(N) with Quicksort</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/three-sum/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/three-sum/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/array/three-sum/#rust-solution">Rust solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>Sort the nums array (needed to avoid duplicates), and initialize the ans array.</li>
+<li>Iterate through nums until the third to last element. 
+<ul>
+<li>If the element is equal to the element to the left of it, go to the next iteration to avoid dups.</li>
+<li>Otherwise, set left to the index after the current one and right to the last index.</li>
+<li>While left &lt; right,
+<ul>
+<li>Calculate the sum of current num, num at left and num at right.
+<ul>
+<li>If the sum is greater than 0, adjust by decreasing right.</li>
+<li>If the sum is less than 0, adjust by increasing left. </li>
+<li>If the sum is zero,
+<ul>
+<li>Append the three numbers to answer array.</li>
+<li>Move left to skip all duplicates.</li>
+<li>Move right to skip all duplicates.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return ans.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-n-2">Time: O(N^2)<a class="anchor" href="#time-o-n-2">§</a>&nbsp;</h3>
+<p>While iterating through the array, we consider each number as a potential candidate for 3 sum numbers. With that number fixed, we iterate through the rest of the array to check if they sum to 0. For each of the n iterations, n-1, n-2, ... , 2, 1 work gets done. (n-1) + (n-2) + ... 2 + 1 = n^2 as per Gauss's formula.</p>
+<h3 id="space-o-logn-with-python-s-timsort-or-o-n-with-quicksort">Space: O(logN) with Python's Timsort or O(N) with Quicksort<a class="anchor" href="#space-o-logn-with-python-s-timsort-or-o-n-with-quicksort">§</a>&nbsp;</h3>
+<p>When sort() is called, Python uses Timsort which has O(N) space complexity. If Quicksort is used (the optimized version by Sedgewick), the extra space used would be O(logN).</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">threeSum</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]) -&gt; List[List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]]:
+        ans </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[]
+        nums.sort()
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">):
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">i </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">nums[i] </span><span style="color:#cc7833;">== </span><span style="color:#e6e1dc;">nums[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]:
+                </span><span style="color:#cc7833;">continue
+
+            </span><span style="color:#e6e1dc;">l </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">i</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1
+            </span><span style="color:#e6e1dc;">r </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+            </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">l </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">r:
+                three_sum </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">nums[i] </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">nums[l] </span><span style="color:#cc7833;">+ </span><span style="color:#e6e1dc;">nums[r]
+                </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">three_sum </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">:
+                    r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+                </span><span style="color:#cc7833;">elif </span><span style="color:#e6e1dc;">three_sum </span><span style="color:#cc7833;">&lt; </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">:
+                    l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+                </span><span style="color:#cc7833;">else</span><span style="color:#e6e1dc;">:
+                    ans.append([nums[i], nums[l], nums[r]])
+                    </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">l </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">r </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">nums[l] </span><span style="color:#cc7833;">== </span><span style="color:#e6e1dc;">nums[l</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]:
+                        l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+                    </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">l </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">r </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">nums[r] </span><span style="color:#cc7833;">== </span><span style="color:#e6e1dc;">nums[r</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]:
+                        r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+                    </span><span style="color:#e6e1dc;">l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+                    </span><span style="color:#e6e1dc;">r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">ans
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">threeSum</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums </span><span style="color:#e6e1dc;">[]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) [][]</span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="font-style:italic;color:#6e9cbe;">var </span><span style="color:#d0d0ff;">ans </span><span style="color:#e6e1dc;">[][]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">
+    sort.Ints(nums)
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt; </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">; i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(i </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(nums[i] </span><span style="color:#cc7833;">==</span><span style="color:#e6e1dc;"> nums[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) {
+            </span><span style="color:#cc7833;">continue</span><span style="color:#e6e1dc;">;
+        }
+
+        </span><span style="color:#d0d0ff;">l </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1
+        </span><span style="color:#d0d0ff;">r </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(nums) </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> l </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> r {
+            </span><span style="color:#d0d0ff;">three_sum </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> nums[i] </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[l] </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[r]
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> three_sum </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+                r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+            </span><span style="color:#e6e1dc;">} </span><span style="color:#cc7833;">else if</span><span style="color:#e6e1dc;"> three_sum </span><span style="color:#cc7833;">&lt; </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+                l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+            </span><span style="color:#e6e1dc;">} </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+                </span><span style="color:#d0d0ff;">add_ans </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">([]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="color:#a5c261;">3</span><span style="color:#e6e1dc;">)
+                add_ans[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> nums[i]
+                add_ans[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> nums[l]
+                add_ans[</span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> nums[r]
+                ans </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">append</span><span style="color:#e6e1dc;">(ans, add_ans)
+
+                </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">(l </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> r) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(nums[l] </span><span style="color:#cc7833;">==</span><span style="color:#e6e1dc;"> nums[l</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) {
+                    l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+                </span><span style="color:#e6e1dc;">}
+                </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">(l </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> r) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(nums[r] </span><span style="color:#cc7833;">==</span><span style="color:#e6e1dc;"> nums[r</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) {
+                    r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+                </span><span style="color:#e6e1dc;">}
+                l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">
+                r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+            </span><span style="color:#e6e1dc;">}
+        }
+    }
+    </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> ans
+}
+</span></pre><h2 id="rust-solution">Rust solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">three_sum</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">nums</span><span style="color:#e6e1dc;">: Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;) -&gt; Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt; {
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> ans </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">Vec</span><span style="color:#e6e1dc;">::new();
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">||</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">&lt; </span><span style="color:#a5c261;">3 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> ans;
+        }
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> nums </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> nums;
+        nums.</span><span style="color:#da4939;">sort</span><span style="color:#e6e1dc;">();
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">2 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(i </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(nums[i] </span><span style="color:#cc7833;">==</span><span style="color:#e6e1dc;"> nums[i</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) {
+                </span><span style="color:#cc7833;">continue</span><span style="color:#e6e1dc;">;
+            }
+
+            </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> l </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">+ </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+            </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> r </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> nums.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+
+            </span><span style="color:#cc7833;">while</span><span style="color:#e6e1dc;"> l </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> r {
+                </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> three_sum </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> nums[i] </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[l] </span><span style="color:#cc7833;">+</span><span style="color:#e6e1dc;"> nums[r];
+                </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> three_sum </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+                    r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+                </span><span style="color:#e6e1dc;">}
+                </span><span style="color:#cc7833;">else if</span><span style="color:#e6e1dc;"> three_sum </span><span style="color:#cc7833;">&lt; </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+                    l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+                </span><span style="color:#e6e1dc;">}
+                </span><span style="color:#cc7833;">else </span><span style="color:#e6e1dc;">{
+                    ans.</span><span style="color:#da4939;">push</span><span style="color:#e6e1dc;">(vec![nums[i], nums[l], nums[r]]);
+                    </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">(l </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> r) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(nums[l] </span><span style="color:#cc7833;">==</span><span style="color:#e6e1dc;"> nums[l</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) {
+                        l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1
+                    </span><span style="color:#e6e1dc;">}
+                    </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">(l </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> r) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(nums[r] </span><span style="color:#cc7833;">==</span><span style="color:#e6e1dc;"> nums[r</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) {
+                        r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1
+                    </span><span style="color:#e6e1dc;">}
+                    l </span><span style="color:#cc7833;">+= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+                    r </span><span style="color:#cc7833;">-= </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">;
+                }
+            }
+        }
+        ans
+    }
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Pacific Atlantic Water Flow </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;graph&#x2F;">Graph</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Pacific Atlantic Water Flow</h1><em>Graph</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>June 6, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/graph/" >#Graph</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/graph/pacific-atlantic/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/pacific-atlantic/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/graph/pacific-atlantic/#time-o-n">Time: O(N)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/graph/pacific-atlantic/#space-o-n">Space: O(N)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/pacific-atlantic/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/pacific-atlantic/#go-solution">Go solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/pacific-atlantic/#rust-solution">Rust Solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>Initialize two boolean 2d arrays with the same dimension as the matrix. Each will represent whether each cell can reach each ocean.</li>
+<li>We utilize depth first search. Start from a cell we know can reach the pacific ocean (or the atlantic ocean) and mark that cell for the ocean to true. Then dfs to all its neighbors (the four directions - left, right, up, and down) that are reachable to the given ocean.
+<ul>
+<li>We do not blindly check for all the four directions. We check whether the directions are in bound, and if the cell is worth checking. The neighboring cell is worth checking only if it is marked as false (i.e. if it is marked as true, no need to check again) and if in the matrix the neighboring cell has a value greater than or equal to the current cell (condition of the problem).</li>
+</ul>
+</li>
+<li>After the dfs is done, iterate through the two boolean 2d arrays. If the values at the indices are true for both oceans, it means that cell can reach both oceans. Append the indices to the answer.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-n">Time: O(N)<a class="anchor" href="#time-o-n">§</a>&nbsp;</h3>
+<p>N denotes the number of cells in the matrix. At most we visit all the cells in the matrix once per ocean. We do not visit cells we have already visited before.</p>
+<h3 id="space-o-n">Space: O(N)<a class="anchor" href="#space-o-n">§</a>&nbsp;</h3>
+<p>We use two arrays of size N for the two oceans to mark each cell's ability to flow to the ocean. Also, the recursive stack can grow at most to N (the number of cells). So O(2*N + N) = O(N).</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">pacificAtlantic</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">matrix</span><span style="color:#e6e1dc;">: List[List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]]) -&gt; List[List[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]]:
+        </span><span style="color:#cc7833;">if not </span><span style="color:#e6e1dc;">matrix:
+            </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">[]
+
+        </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">dfs</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">ocean</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">row</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">col</span><span style="color:#e6e1dc;">):
+            ocean[row][col] </span><span style="color:#cc7833;">= </span><span style="color:#6e9cbe;">True
+
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">row </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">and not </span><span style="color:#e6e1dc;">ocean[row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">matrix[row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">&gt;= </span><span style="color:#e6e1dc;">matrix[row][col]:
+                dfs(ocean, row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, col)
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">row </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">rows </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1 </span><span style="color:#cc7833;">and not </span><span style="color:#e6e1dc;">ocean[row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">matrix[row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">&gt;= </span><span style="color:#e6e1dc;">matrix[row][col]:
+                dfs(ocean, row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, col)
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">col </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">and not </span><span style="color:#e6e1dc;">ocean[row][col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">and not </span><span style="color:#e6e1dc;">ocean[row][col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">matrix[row][col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">&gt;= </span><span style="color:#e6e1dc;">matrix[row][col]:
+                dfs(ocean, row, col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+            </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">col </span><span style="color:#cc7833;">&lt; </span><span style="color:#e6e1dc;">cols </span><span style="color:#cc7833;">- </span><span style="color:#a5c261;">1 </span><span style="color:#cc7833;">and not </span><span style="color:#e6e1dc;">ocean[row][col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">matrix[row][col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">&gt;= </span><span style="color:#e6e1dc;">matrix[row][col]:
+                dfs(ocean, row, col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+
+        rows </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix)
+        cols </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">])
+
+        pacific </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[[</span><span style="color:#6e9cbe;">False </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_ </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(cols)] </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_ </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(rows)]
+        atlantic </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[[</span><span style="color:#6e9cbe;">False </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_ </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(cols)] </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_ </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(rows)]
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">row </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(rows):
+            dfs(pacific, row, </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">)
+            dfs(atlantic, row, cols</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">col </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(cols):
+            dfs(pacific, </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">, col)
+            dfs(atlantic, rows</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, col)
+
+        ans </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[]
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">r </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(rows):
+            </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">c </span><span style="color:#cc7833;">in </span><span style="color:#da4939;">range</span><span style="color:#e6e1dc;">(cols):
+                </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">pacific[r][c] </span><span style="color:#cc7833;">and </span><span style="color:#e6e1dc;">atlantic[r][c]:
+                    ans.append([r, c])
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">ans
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">pacificAtlantic</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">matrix</span><span style="color:#e6e1dc;"> [][]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) [][]</span><span style="font-style:italic;color:#6e9cbe;">int </span><span style="color:#e6e1dc;">{
+    </span><span style="color:#cc7833;">if </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix) </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">|| </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">]) </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">nil
+    </span><span style="color:#e6e1dc;">}
+
+    </span><span style="color:#d0d0ff;">rows </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix)
+    </span><span style="color:#d0d0ff;">cols </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">])
+
+    </span><span style="color:#d0d0ff;">pacific </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">([][]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">, rows)
+    </span><span style="color:#d0d0ff;">atlantic </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">([][]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">, rows)
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> rows; i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        pacific[i] </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">([]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">, cols)
+        atlantic[i] </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">([]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">, cols)
+    }
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> rows; i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        dfs(matrix, pacific, i, </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">)
+        dfs(matrix, atlantic, i, cols</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+    }
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">j </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; j </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> cols; j</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        dfs(matrix, pacific, </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">, j)
+        dfs(matrix, atlantic, rows</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, j)
+    }
+    </span><span style="color:#d0d0ff;">ans </span><span style="color:#cc7833;">:= </span><span style="color:#e6e1dc;">[][]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">{}
+    </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">i </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; i </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> rows; i</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">j </span><span style="color:#cc7833;">:= </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">; j </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> cols; j</span><span style="color:#cc7833;">++ </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> pacific[i][j] </span><span style="color:#cc7833;">&amp;&amp;</span><span style="color:#e6e1dc;"> atlantic[i][j] {
+                ans </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">append</span><span style="color:#e6e1dc;">(ans, []</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">{i, j})
+            }
+        }
+    }
+    </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> ans
+}
+
+</span><span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">dfs</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">matrix</span><span style="color:#e6e1dc;"> [][]</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">ocean</span><span style="color:#e6e1dc;"> [][]</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">row </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">col </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) {
+    ocean[row][col] </span><span style="color:#cc7833;">= </span><span style="color:#6e9cbe;">true
+    </span><span style="color:#d0d0ff;">rows </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix)
+    </span><span style="color:#d0d0ff;">cols </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(matrix[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">])
+
+    </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(row </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+        dfs(matrix, ocean, row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, col)
+    }
+    </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(row </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> rows</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+        dfs(matrix, ocean, row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, col)
+    }
+    </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(col </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row][col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row][col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+        dfs(matrix, ocean, row, col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+    }
+    </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">(col </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> cols</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row][col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row][col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+        dfs(matrix, ocean, row, col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+    }
+}
+</span></pre><h2 id="rust-solution">Rust Solution<a class="anchor" href="#rust-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">impl </span><span style="color:#e6e1dc;">Solution {
+    </span><span style="color:#cc7833;">pub </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">pacific_atlantic</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">matrix</span><span style="color:#e6e1dc;">: Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt;) -&gt; Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt; {
+        </span><span style="font-style:italic;color:#6e9cbe;">fn </span><span style="color:#ffc66d;">dfs</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">matrix</span><span style="color:#e6e1dc;">: </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt;, </span><span style="color:#cc7833;">mut </span><span style="font-style:italic;color:#fd971f;">ocean</span><span style="color:#e6e1dc;">: </span><span style="color:#cc7833;">&amp;mut </span><span style="color:#e6e1dc;">Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">&gt;&gt;, </span><span style="font-style:italic;color:#fd971f;">row</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">col</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">usize</span><span style="color:#e6e1dc;">) {
+            ocean[row][col] </span><span style="color:#cc7833;">= </span><span style="color:#6e9cbe;">true</span><span style="color:#e6e1dc;">;
+            </span><span style="font-style:italic;color:#6e9cbe;">let</span><span style="color:#e6e1dc;"> rows </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> matrix.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">();
+            </span><span style="font-style:italic;color:#6e9cbe;">let</span><span style="color:#e6e1dc;"> cols </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> matrix[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">].</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">();
+
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> row </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+                </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> ocean, row</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, col);
+            }
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> row </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> rows</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1 </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">][col] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+                </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> ocean, row</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, col);
+            }
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> col </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row][col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row][col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+                </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> ocean, row, col</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">);
+            }
+            </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> col </span><span style="color:#cc7833;">&lt;</span><span style="color:#e6e1dc;"> cols</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1 </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">!</span><span style="color:#e6e1dc;">ocean[row][col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">]) </span><span style="color:#cc7833;">&amp;&amp; </span><span style="color:#e6e1dc;">(matrix[row][col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">&gt;=</span><span style="color:#e6e1dc;"> matrix[row][col]) {
+                </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> ocean, row, col</span><span style="color:#cc7833;">+</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">);
+            }
+        }
+
+        </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> matrix.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#cc7833;">||</span><span style="color:#e6e1dc;"> matrix[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">].</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">() </span><span style="color:#cc7833;">== </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#cc7833;">return </span><span style="font-style:italic;color:#6e9cbe;">Vec</span><span style="color:#e6e1dc;">::new();
+        }
+        </span><span style="font-style:italic;color:#6e9cbe;">let</span><span style="color:#e6e1dc;"> rows </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> matrix.</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">();
+        </span><span style="font-style:italic;color:#6e9cbe;">let</span><span style="color:#e6e1dc;"> cols </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> matrix[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">].</span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">();
+
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> pacific: Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">&gt;&gt; </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">Vec</span><span style="color:#e6e1dc;">::with_capacity(rows);
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> atlantic: Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">bool</span><span style="color:#e6e1dc;">&gt;&gt; </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">Vec</span><span style="color:#e6e1dc;">::with_capacity(rows);
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">rows {
+            pacific.</span><span style="color:#da4939;">push</span><span style="color:#e6e1dc;">(vec![</span><span style="color:#6e9cbe;">false</span><span style="color:#e6e1dc;">;cols]);
+            atlantic.</span><span style="color:#da4939;">push</span><span style="color:#e6e1dc;">(vec![</span><span style="color:#6e9cbe;">false</span><span style="color:#e6e1dc;">;cols]);
+        }
+
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">rows {
+            </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> pacific, i, </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">);
+            </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> atlantic, i, cols</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">);
+        }
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> j </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">cols {
+            </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> pacific, </span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">, j);
+            </span><span style="color:#da4939;">dfs</span><span style="color:#e6e1dc;">(</span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;">matrix, </span><span style="color:#cc7833;">&amp;mut</span><span style="color:#e6e1dc;"> atlantic, rows</span><span style="color:#cc7833;">-</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">, j);
+        }
+        </span><span style="font-style:italic;color:#6e9cbe;">let </span><span style="color:#cc7833;">mut</span><span style="color:#e6e1dc;"> ans: Vec&lt;Vec&lt;</span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">&gt;&gt; </span><span style="color:#cc7833;">= </span><span style="font-style:italic;color:#6e9cbe;">Vec</span><span style="color:#e6e1dc;">::new();
+        </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> i </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">rows {
+            </span><span style="color:#cc7833;">for</span><span style="color:#e6e1dc;"> j </span><span style="color:#cc7833;">in </span><span style="color:#a5c261;">0</span><span style="color:#cc7833;">..</span><span style="color:#e6e1dc;">cols {
+                </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> pacific[i][j] </span><span style="color:#cc7833;">&amp;&amp;</span><span style="color:#e6e1dc;"> atlantic[i][j] {
+                    ans.</span><span style="color:#da4939;">push</span><span style="color:#e6e1dc;">(vec![i </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">, j </span><span style="color:#cc7833;">as </span><span style="font-style:italic;color:#6e9cbe;">i32</span><span style="color:#e6e1dc;">]);
+                }
+            }
+        }
+        ans
+    }
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

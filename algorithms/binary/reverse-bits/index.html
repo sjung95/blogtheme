@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Reverse Bits </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;binary&#x2F;">Binary</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Reverse Bits</h1><em>Binary</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 16, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/binary/" >#Binary</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/binary/reverse-bits/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/binary/reverse-bits/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/binary/reverse-bits/#time-o-nlogn">Time: O(NlogN)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/binary/reverse-bits/#space-o-1">Space: O(1)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/binary/reverse-bits/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/binary/reverse-bits/#go-solution">Go solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>Use the divide and conquer approach.
+<ul>
+<li>Assuming the input number is 32 bits, start reversing by swapping the first 16 bits with the last 16 bits.</li>
+<li>Then for each 16 bit half, swap the first 8 bits with the last 8 bits. Repeat for each 4 bit group, 2 bit group, and then 1 bit.</li>
+</ul>
+</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-nlogn">Time: O(NlogN)<a class="anchor" href="#time-o-nlogn">§</a>&nbsp;</h3>
+<p>This is derived from using the second case of Master's Theorem.
+The number of sub-problems is a=2. The size of each sub-problem is n/b=n/2. The cost of work that has to be done is f(n)=n to flip the bits at every level.</p>
+<h3 id="space-o-1">Space: O(1)<a class="anchor" href="#space-o-1">§</a>&nbsp;</h3>
+<p>No extra space is used.</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">reverseBits</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">n</span><span style="color:#e6e1dc;">: </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">) -&gt; </span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">:
+
+        n </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xFFFF0000 </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">16</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x0000FFFF </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">16</span><span style="color:#e6e1dc;">)
+        n </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xFF00FF00 </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">8</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x00FF00FF </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">8</span><span style="color:#e6e1dc;">)
+        n </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xF0F0F0F0 </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">4</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x0F0F0F0F </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">4</span><span style="color:#e6e1dc;">)
+        n </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xcccccccc </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x33333333 </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">)
+        n </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xaaaaaaaa </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x55555555 </span><span style="color:#cc7833;">&amp; </span><span style="color:#e6e1dc;">n) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">n
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">reverseBits</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">num </span><span style="font-style:italic;color:#6e9cbe;">uint32</span><span style="color:#e6e1dc;">) </span><span style="font-style:italic;color:#6e9cbe;">uint32 </span><span style="color:#e6e1dc;">{
+        num </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xFFFF0000 </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">16</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x0000FFFF </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">16</span><span style="color:#e6e1dc;">)
+        num </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xFF00FF00 </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">8</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x00FF00FF </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">8</span><span style="color:#e6e1dc;">)
+        num </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xF0F0F0F0 </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">4</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x0F0F0F0F </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">4</span><span style="color:#e6e1dc;">)
+        num </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xcccccccc </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x33333333 </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">2</span><span style="color:#e6e1dc;">)
+        num </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0xaaaaaaaa </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&gt;&gt; </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">) </span><span style="color:#cc7833;">| </span><span style="color:#e6e1dc;">((</span><span style="color:#a5c261;">0x55555555 </span><span style="color:#cc7833;">&amp;</span><span style="color:#e6e1dc;"> num) </span><span style="color:#cc7833;">&lt;&lt; </span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">)
+
+        </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> num
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>

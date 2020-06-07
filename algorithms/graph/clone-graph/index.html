@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      <title> FUNZONE | Clone Graph </title>     
+      <link rel="stylesheet" href="https://sjung95.github.io/main.css">
+    </head>
+
+    <body>
+      <nav>
+        <div id="subnav">
+          <form class="theme-selector">
+            <button type="button" id="theme-light-button" class="theme-button" onclick="enableTheme('light', true)">&#9706;</button>
+            <button type="button" id="theme-dark-button"  class="theme-button enabled" onclick="enableTheme('dark', true)">&#9705;</button>
+          </form>
+          <a href="/search/">&#8981;</a>       
+        </div>
+
+      
+  <ul id="breadcrumbs">
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;">FUNZONE</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;">Algorithms</a>&nbsp;&#8594;&nbsp;</li> 
+    
+      
+      <li><a href="https:&#x2F;&#x2F;sjung95.github.io&#x2F;algorithms&#x2F;graph&#x2F;">Graph</a>&nbsp;&#8594;&nbsp;</li> 
+    
+  </ul>
+  <h1>Clone Graph</h1><em>Graph</em> 
+
+      </nav>
+
+      <main>
+      
+  <div id="taxonomies">
+    
+      <date>May 26, 2020</date>
+       
+
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/authors/suzie-jung/" >Suzie Jung</a></li>
+      
+     </ul>
+    
+    
+    
+      <ul>
+      
+        <li><a href="https://sjung95.github.io/tags/dynamic-programming/" >#Dynamic Programming</a></li>
+      
+      </ul>
+    
+  </div>
+
+  
+  
+    
+    
+  
+    
+    
+      
+      
+    
+      
+      
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+      <ul id="toc">
+        
+          <li><a href="https://sjung95.github.io/algorithms/graph/clone-graph/#how-to-solve">How to solve</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/clone-graph/#complexity-analysis">Complexity Analysis</a>
+          <ul>        
+            
+            <li><a href="https://sjung95.github.io/algorithms/graph/clone-graph/#time-o-n">Time: O(N)</a></li>
+          
+            <li><a href="https://sjung95.github.io/algorithms/graph/clone-graph/#space-o-n">Space: O(N)</a></li>
+          
+         </ul>
+  
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/clone-graph/#python-solution">Python solution</a>
+          
+        </li>
+  
+          <li><a href="https://sjung95.github.io/algorithms/graph/clone-graph/#go-solution">Go solution</a>
+          
+        </li>
+  
+      </ul>
+  
+
+  <article>
+    <h2 id="how-to-solve">How to solve<a class="anchor" href="#how-to-solve">§</a>&nbsp;</h2>
+<ol>
+<li>Initialize a queue that will contain the nodes that we visit that have yet to be cloned.
+<ul>
+<li>Add the passed-in node to the queue.</li>
+</ul>
+</li>
+<li>Create a hashmap with key as the old node and the value as the cloned node.
+<ul>
+<li>Create a clone of the passed-in node and insert the pairing into the hashmap.</li>
+</ul>
+</li>
+<li>Now, utilize a BFS to visit the neighbors.
+<ul>
+<li>To perform this BFS exhaustively, use a while loop. The condition being checked is whether the queue is empty, as this queue holds nodes that have been visited but not yet cloned.</li>
+<li>Thus in the while loop, we &quot;pop&quot; from the queue.
+<ul>
+<li>In the case of python, we can use a deque and pop left but we can also just use a normal pop of a list because we will never clone the same node twice or mess up the order since we check for whether we have visited that node by checking if the node is a key in the hashmap and by performing a BFS.</li>
+</ul>
+</li>
+<li>For the popped node, iterate through all its neighbors. If a neighbor is not in the hashmap, add it with the clone of it as the value and empty neighbors list. Then append the neighbor to the queue. Append the cloned neighbor to the neighbors list of the current cloned node we are considering.</li>
+</ul>
+</li>
+<li>Return the copy of the passed-in node.</li>
+</ol>
+<h2 id="complexity-analysis">Complexity Analysis<a class="anchor" href="#complexity-analysis">§</a>&nbsp;</h2>
+<h3 id="time-o-n">Time: O(N)<a class="anchor" href="#time-o-n">§</a>&nbsp;</h3>
+<p>Linear time with respect to the number of nodes in a graph. We only check and clone each node once.</p>
+<h3 id="space-o-n">Space: O(N)<a class="anchor" href="#space-o-n">§</a>&nbsp;</h3>
+<p>The size of the queue can be at most n - 1. Do we include the space of the hashmap?</p>
+<h2 id="python-solution">Python solution<a class="anchor" href="#python-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#3bc0f0;">class </span><span style="text-decoration:underline;color:#ffc66d;">Solution</span><span style="color:#e6e1dc;">:
+    </span><span style="font-style:italic;color:#3bc0f0;">def </span><span style="color:#ffc66d;">cloneGraph</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">self</span><span style="color:#e6e1dc;">, </span><span style="font-style:italic;color:#fd971f;">node</span><span style="color:#e6e1dc;">: </span><span style="color:#a5c261;">&#39;Node&#39;</span><span style="color:#e6e1dc;">) -&gt; </span><span style="color:#a5c261;">&#39;Node&#39;</span><span style="color:#e6e1dc;">:
+        </span><span style="color:#cc7833;">if not </span><span style="color:#e6e1dc;">node:
+            </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">None
+
+        </span><span style="color:#e6e1dc;">queue </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">[node]
+        visited </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">{}
+        visited[node] </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">Node(node.val, [])
+
+        </span><span style="color:#cc7833;">while </span><span style="color:#e6e1dc;">queue:
+            curr_node </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">queue.pop()
+
+            </span><span style="color:#cc7833;">for </span><span style="color:#e6e1dc;">neighbor </span><span style="color:#cc7833;">in </span><span style="color:#e6e1dc;">curr_node.neighbors:
+                </span><span style="color:#cc7833;">if </span><span style="color:#e6e1dc;">neighbor </span><span style="color:#cc7833;">not in </span><span style="color:#e6e1dc;">visited:
+                    visited[neighbor] </span><span style="color:#cc7833;">= </span><span style="color:#e6e1dc;">Node(neighbor.val, [])
+                    queue.append(neighbor)
+                visited[curr_node].neighbors.append(visited[neighbor])
+
+        </span><span style="color:#cc7833;">return </span><span style="color:#e6e1dc;">visited[node]
+</span></pre><h2 id="go-solution">Go solution<a class="anchor" href="#go-solution">§</a>&nbsp;</h2>
+<pre style="background-color:#383838;">
+<span style="font-style:italic;color:#6e9cbe;">func </span><span style="color:#ffc66d;">cloneGraph</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#fd971f;">node </span><span style="color:#cc7833;">*</span><span style="color:#e6e1dc;">Node) </span><span style="color:#cc7833;">*</span><span style="color:#e6e1dc;">Node {
+    </span><span style="color:#cc7833;">if</span><span style="color:#e6e1dc;"> node </span><span style="color:#cc7833;">== </span><span style="color:#6e9cbe;">nil </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#cc7833;">return </span><span style="color:#6e9cbe;">nil
+    </span><span style="color:#e6e1dc;">}
+
+    </span><span style="color:#d0d0ff;">visited </span><span style="color:#cc7833;">:= </span><span style="color:#da4939;">make</span><span style="color:#e6e1dc;">(</span><span style="font-style:italic;color:#6e9cbe;">map</span><span style="color:#e6e1dc;">[</span><span style="font-style:italic;color:#6e9cbe;">int</span><span style="color:#e6e1dc;">]</span><span style="color:#cc7833;">*</span><span style="color:#e6e1dc;">Node)
+    </span><span style="color:#d0d0ff;">new_node </span><span style="color:#cc7833;">:= &amp;</span><span style="color:#e6e1dc;">Node{Val: node.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">}
+    visited[node.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> new_node
+    </span><span style="color:#d0d0ff;">queue </span><span style="color:#cc7833;">:= </span><span style="color:#e6e1dc;">[]</span><span style="color:#cc7833;">*</span><span style="color:#e6e1dc;">Node{node}
+
+    </span><span style="color:#cc7833;">for </span><span style="color:#da4939;">len</span><span style="color:#e6e1dc;">(queue) </span><span style="color:#cc7833;">&gt; </span><span style="color:#a5c261;">0 </span><span style="color:#e6e1dc;">{
+        </span><span style="color:#d0d0ff;">curr </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> queue[</span><span style="color:#a5c261;">0</span><span style="color:#e6e1dc;">]
+        queue </span><span style="color:#cc7833;">=</span><span style="color:#e6e1dc;"> queue[</span><span style="color:#a5c261;">1</span><span style="color:#e6e1dc;">:]
+
+        </span><span style="color:#cc7833;">for </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">nbhr </span><span style="color:#cc7833;">:= range</span><span style="color:#e6e1dc;"> curr.</span><span style="color:#d0d0ff;">Neighbors </span><span style="color:#e6e1dc;">{
+            </span><span style="color:#d0d0ff;">_</span><span style="color:#e6e1dc;">, </span><span style="color:#d0d0ff;">in_visited </span><span style="color:#cc7833;">:=</span><span style="color:#e6e1dc;"> visited[nbhr.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">]
+            </span><span style="color:#cc7833;">if !</span><span style="color:#e6e1dc;">in_visited {
+                visited[nbhr.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">] </span><span style="color:#cc7833;">= &amp;</span><span style="color:#e6e1dc;">Node{Val: nbhr.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">}
+                queue </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">append</span><span style="color:#e6e1dc;">(queue, nbhr)
+            }
+            visited[curr.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">].</span><span style="color:#d0d0ff;">Neighbors </span><span style="color:#cc7833;">= </span><span style="color:#da4939;">append</span><span style="color:#e6e1dc;">(visited[curr.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">].</span><span style="color:#d0d0ff;">Neighbors</span><span style="color:#e6e1dc;">, visited[nbhr.</span><span style="color:#d0d0ff;">Val</span><span style="color:#e6e1dc;">])
+        }
+    }
+    </span><span style="color:#cc7833;">return</span><span style="color:#e6e1dc;"> new_node
+}
+</span></pre>
+  </article>
+
+      </main>
+
+      <script type="text/javascript" src="https://sjung95.github.io/themes.js"></script>
+
+      <script>
+        function burger() {
+          var x = document.getElementById("bger");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
+    </body>
+</html>
